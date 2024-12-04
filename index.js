@@ -18,6 +18,10 @@ app.get('/terms-and-conditions', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'terms-and-condition.html'))
 })
 
+app.get('/sitmap.xml', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'))
+})
+
 app.listen(port, () => {
     console.log('Server is running on port ' + port);
 });
