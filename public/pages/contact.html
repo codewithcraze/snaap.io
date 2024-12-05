@@ -16,8 +16,9 @@
         content="Shorten, share, and track your URLs effortlessly with Snaap.io. Simplify your links and gain insights with real-time analytics and detailed tracking reports. Perfect for businesses and individuals alike!">
     <meta name="keywords"
         content="URL shortener, link shortener, Snaap.io, shorten links, custom URLs, URL tracking, link analytics, URL management, real-time analytics, link sharing, custom link branding">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" type="image/png" href="./logo.avif">
     <style>
         input{
             height: 50px;
@@ -240,7 +241,7 @@
           
               // You can use Ajax to send the form data to the server, for example:
               $.ajax({
-                url: '/submit-contact-form',  // Replace with your server endpoint
+                url: '/api/submit-contact-form',
                 type: 'POST',
                 data: formData,
                 success: function(response) {

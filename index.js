@@ -35,11 +35,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/privacy-policy', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'privacy-policy.html'))
+    res.sendFile(path.join(__dirname, 'public', '/pages/privacy-policy.html'))
 })
 
 app.get('/terms-and-conditions', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'terms-and-condition.html'))
+    res.sendFile(path.join(__dirname, 'public', '/pages/terms-and-condition.html'))
 })
 
 app.get('/sitmap.xml', (req, res) => {
@@ -47,33 +47,12 @@ app.get('/sitmap.xml', (req, res) => {
 })
 
 app.get('/contact-us', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'contact.html'))
+    res.sendFile(path.join(__dirname, 'public', '/pages/contact.html'))
 })
 
-app.post('/submit-contact-form', async(req, res) => {
-    try {
-        const { firstName, lastName, email, message, subscribe } = req.body;
-        const newContact = new Contact({
-            firstName,
-            lastName,
-            email,
-            message,
-            subscribe
-        });
-        await newContact.save();
-        res.json({
-            status: true,
-            message: 'Contact form submitted successfully'
-        })
-    } catch (error) {
-        res.json({
-            status: false,
-            error: error.message
-        })
-    }
-})
+// API routes
 
-
+app.use('/api', require('./routes'))
 
 
 
