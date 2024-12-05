@@ -41,6 +41,12 @@ app.get('/sitmap.xml', (req, res) => {
 app.get('/contact-us', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/pages/contact.html'))
 })
+
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', '/pages/about.html'))
+})
+
+
 // API routes
 app.get('/blog', (req, res) => {
 
