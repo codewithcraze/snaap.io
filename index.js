@@ -381,7 +381,7 @@ app.get('/blog', async (req, res) => {
 
         <!-- Copyright -->
         <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-            © 2021 Copyright:
+            © <span id="year"></span> Copyright:
             <a class="text-reset fw-bold" href="https://snaap.io/">Snaap.io</a>
         </div>
         <!-- Copyright -->
@@ -453,7 +453,139 @@ app.get('/blog/:url', async(req, res) => {
     <meta name="keywords" content="${blog?.metaKeywords}">
     <link rel="icon" type="image/png" href="./logo.avif">
     <style>
-     body{font-family:Poppins,sans-serif;background-color:#fff!important}.navbar{height:70px;background-color:#000;box-shadow:rgba(0,0,0,.12) 0 1px 3px,rgba(0,0,0,.24) 0 1px 2px;border-bottom:1px solid #fff}.navbar-brand,.navbar-nav .nav-link,.navbar-nav .nav-link.active{color:#fff}.navbar-nav .nav-link:hover{color:#d1d1d1}.input-section{margin-top:1rem;text-align:center}.input-section input{height:50px;width:100%;background-color:#fff;border:1px solid #ddd;color:#000;padding:0 1rem;font-size:1rem;margin-bottom:10px}.input-section button{padding:10px 20px;background-color:#000;color:#fff;border:1px solid #ddd;cursor:pointer;transition:background-color .3s}.input-section button:hover{background-color:#444}.result-section p{font-size:1rem;display:none}.result-section .hidden{display:none}.navbar-brand{line-height:1.5;font-weight:800}.main{height:400px;margin-top:200px}#longUrl{width:100%;height:60px;padding:.8rem;font-size:1.2rem;border-radius:9px}.input-section input:focus{border:2px solid #444;outline:0;transition:border .3s}#generateBtn:hover{transform:scale(1.05);transition:transform .3s}.result-section p.hidden{opacity:0;transition:opacity .5s}.result-section p:not(.hidden){opacity:1}#copyBtn:focus{outline:#444 solid 2px}.result-section span{font-weight:700;text-decoration:underline;cursor:pointer}@media (max-width:768px){.input-section{margin-top:2rem;width:100%!important}.input-section input{max-width:100%}.footer .footer-social-link{margin-bottom:.8rem;text-decoration:none!important}.input-section button{width:100%;margin-top:10px}}.social-link a i{font-size:2rem}.social-link a i:hover{font-size:2.1rem}
+        body {
+            font-family: Poppins, sans-serif;
+            background-color: #fff!important
+        }
+
+        .navbar {
+            height: 70px;
+            background-color: #000;
+            box-shadow: rgba(0, 0, 0, .12) 0 1px 3px, rgba(0, 0, 0, .24) 0 1px 2px;
+            border-bottom: 1px solid #fff
+        }
+
+        .navbar-brand,
+        .navbar-nav .nav-link,
+        .navbar-nav .nav-link.active {
+            color: #fff
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #d1d1d1
+        }
+
+        .input-section {
+            margin-top: 1rem;
+            text-align: center
+        }
+
+        .input-section input {
+            height: 50px;
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            color: #000;
+            padding: 0 1rem;
+            font-size: 1rem;
+            margin-bottom: 10px
+        }
+
+        .input-section button {
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: background-color .3s
+        }
+
+        .input-section button:hover {
+            background-color: #444
+        }
+
+        .result-section p {
+            font-size: 1rem;
+            display: none
+        }
+
+        .result-section .hidden {
+            display: none
+        }
+
+        .navbar-brand {
+            line-height: 1.5;
+            font-weight: 800
+        }
+
+        .main {
+            height: 400px;
+            margin-top: 200px
+        }
+
+        #longUrl {
+            width: 100%;
+            height: 60px;
+            padding: .8rem;
+            font-size: 1.2rem;
+            border-radius: 9px
+        }
+
+        .input-section input:focus {
+            border: 2px solid #444;
+            outline: 0;
+            transition: border .3s
+        }
+
+        #generateBtn:hover {
+            transform: scale(1.05);
+            transition: transform .3s
+        }
+
+        .result-section p.hidden {
+            opacity: 0;
+            transition: opacity .5s
+        }
+
+        .result-section p:not(.hidden) {
+            opacity: 1
+        }
+
+        #copyBtn:focus {
+            outline: #444 solid 2px
+        }
+
+        .result-section span {
+            font-weight: 700;
+            text-decoration: underline;
+            cursor: pointer
+        }
+
+        @media (max-width:768px) {
+            .input-section {
+                margin-top: 2rem;
+                width: 100%!important
+            }
+            .input-section input {
+                max-width: 100%
+            }
+            .footer .footer-social-link {
+                margin-bottom: .8rem;
+                text-decoration: none!important
+            }
+            .input-section button {
+                width: 100%;
+                margin-top: 10px
+            }
+        }
+
+        .social-link a i {
+            font-size: 2rem
+        }
+
+        .social-link a i:hover {
+            font-size: 2.1rem
+        }
     </style>
 </head>
 
@@ -485,22 +617,23 @@ app.get('/blog/:url', async(req, res) => {
     <div style="margin-top: 100px">
         <main class="container">
             <div class="row g-5">
-               <div class="col-md-8">
-                       <h3 class="pb-4 mb-4 fst-italic border-bottom">
+                <div class="col-md-8">
+                    <h3 class="pb-4 mb-4 fst-italic border-bottom">
                         ${blog?.categoryName}
                     </h3>
                     <article class="blog-post">
-                         <h2 class="display-8 link-body-emphasis mb-1">${blog?.title}</h2>
+                        <h2 class="display-8 link-body-emphasis mb-1">${blog?.title}</h2>
                         <p class="blog-post-meta">${formattedDate} by ${blog?.postBy}</p>
                         ${blog?.content}
                     </article>
-               </div>
+                </div>
 
                 <div class="col-md-4">
                     <div class="position-sticky" style="top: 2rem;">
                         <div class="p-1 mb-3 bg-body-tertiary rounded">
                             <h4 class="fst-italic">About</h4>
-                            <p class="mb-0">At Snaap.io, we aim to empower you with simple, yet powerful tools that enhance your digital workflows. Whether you're sharing links, tracking performance, or creating custom QR codes, we are here to make your online presence seamless..</p>
+                            <p class="mb-0">At Snaap.io, we aim to empower you with simple, yet powerful tools that enhance your digital workflows. Whether you're sharing links, tracking performance, or creating custom QR codes, we are here to make your online presence
+                                seamless..</p>
                         </div>
 
                         <div>
@@ -508,13 +641,13 @@ app.get('/blog/:url', async(req, res) => {
                             ${finalHTML}
                         </div>
 
-                     
+
                         <div class="p-4">
                             <h4 class="fst-italic">Elsewhere</h4>
                             <ol class="list-unstyled">
                                 <li><a href="https://github.com/codewithcraze">GitHub</a></li>
-                                 <li><a href="https://www.linkedin.com/in/codewithcraze/">Linkedin</a></li>
-                                 <li><a href="https://www.instagram.com/codewithdeepak.in">Instagram</a></li>
+                                <li><a href="https://www.linkedin.com/in/codewithcraze/">Linkedin</a></li>
+                                <li><a href="https://www.instagram.com/codewithdeepak.in">Instagram</a></li>
                             </ol>
                         </div>
                     </div>
@@ -557,7 +690,7 @@ app.get('/blog/:url', async(req, res) => {
                     <!-- Grid column -->
                     <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                         <!-- Content -->
-                        
+
                         <h6 class="text-uppercase fw-bold mb-4">
                             <i class="fas fa-gem me-3"></i>Snaap.io
                         </h6>
@@ -566,7 +699,7 @@ app.get('/blog/:url', async(req, res) => {
                         </p>
                     </div>
                     <!-- Grid column -->
-                    
+
                     <!-- Grid column -->
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                         <!-- Links -->
@@ -632,7 +765,25 @@ app.get('/blog/:url', async(req, res) => {
 
         <!-- Copyright -->
         <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-            © 2021 Copyright:`;
+            © <span id="year"></span> Copyright:
+            <a class="text-reset fw-bold" href="https://snaap.io/">Snaap.io</a>
+        </div>
+        </footer>
+          <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+        </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5723306635822257"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>`;
 
     res.send(html);
 
