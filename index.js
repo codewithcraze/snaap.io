@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));  // To parse application/x-w
 app.use(express.static(path.join(__dirname, 'public')));
 
 const { Blog } = require('./models/blog');
-
+const Url = require('./models/sortUrl');
 // Mongoose Connection
 async function connectDB() {
     try {
@@ -30,6 +30,8 @@ connectDB();
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+
 
 app.get('/privacy-policy', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/pages/privacy-policy.html'))
@@ -50,7 +52,9 @@ app.get('/contact-us', (req, res) => {
 app.get('/about', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/pages/about.html'))
 })
-
+app.get('/analytics', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', '/pages/analytics.html'))
+})
 // API routes
 app.get('/blog', async (req, res) => {
     const blogs = await Blog.find({});
@@ -252,7 +256,7 @@ app.get('/blog', async (req, res) => {
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Analytics</a>
+                      <a class="nav-link" href="/analytics">Analytics</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Pricing</a>
@@ -330,7 +334,7 @@ app.get('/blog', async (req, res) => {
                             <a href="/" class="text-reset">Snaap.io</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">Analytics</a>
+                       <a href="/analytics" class="text-reset">Analytics</a>
                         </p>
                         <p>
                             <a href="#!" class="text-reset">QR Code Generator</a>
@@ -404,7 +408,6 @@ app.get('/blog', async (req, res) => {
 </body>
 
 </html>`
-
     res.send(html)
 
 });
@@ -462,23 +465,23 @@ app.get('/blog/:url', async (req, res) => {
             // Add to TOC
             toc.push({ level, text, id: uniqueId });
         });
-    
+
         // Generate TOC HTML
         const tocHtml = toc
             .map(({ level, text, id }) => `<li className="toc-level-${level}"><a href="#${id}">${text}</a></li>`)
             .join("\n");
         const tocWrapper = `<ul className="table-of-contents">\n${tocHtml}\n</ul>`;
-    
+
         // Extract the content inside the body (excluding the <html> and <body> tags)
         const modifiedHtml = $("body").html() || ''; // Ensure it's not undefined
         const modifiedHtmlWrapped = `<div className="content-wrapper">\n${modifiedHtml}\n</div>`;
-    
+
         return {
             modifiedHtml: modifiedHtmlWrapped, // Modified HTML inside <div>
             tocHtml: tocWrapper,               // TOC HTML
         };
     }
-    
+
     const { modifiedHtml, tocHtml } = tocify(blog?.content || ''); // Ensure blog?.content is valid
 
 
@@ -707,7 +710,7 @@ a:hover {
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Analytics</a>
+                      <a class="nav-link" href="/analytics">Analytics</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Pricing</a>
@@ -831,7 +834,7 @@ a:hover {
                             <a href="/" class="text-reset">Snaap.io</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">Analytics</a>
+                       <a href="/analytics" class="text-reset">Analytics</a>
                         </p>
                         <p>
                             <a href="#!" class="text-reset">QR Code Generator</a>
@@ -909,7 +912,34 @@ a:hover {
 
 });
 
+
+
 app.use('/api', require('./routes'))
+
+// @route    GET /:code
+// @desc     Redirect to long/original URL
+app.get('/:code', async (req, res) => {
+    try {
+        // Find the URL by the urlCode and increment the count by 1
+        const url = await Url.findOneAndUpdate(
+            { urlCode: req.params.code }, // Match the URL by code
+            { $inc: { count: 1 } }, // Increment the count by 1
+            { new: true } // Return the updated document
+        );
+
+        if (url) {
+            // If the URL is found, redirect to the original long URL
+            return res.redirect(url.longUrl);
+        } else {
+            // If no URL is found, return a 404 error
+            return res.status(404).json('No URL found');
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json('Server error');
+    }
+});
+
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/pages/notfound.html'))
