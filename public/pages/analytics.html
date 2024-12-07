@@ -22,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,0,400;1,0,400&display=swap"
         rel="stylesheet">
     <link rel="icon" type="image/png" href="./logo.avif">
     <style>
@@ -54,8 +54,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5 fixed-top"
-        style="background-color: rgba(0, 0, 0, 0.05);">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5 fixed-top" style="background-color: rgba(0, 0, 0, 0.05);">
         <div class="container-fluid bg-light">
             <a class="navbar-brand" href="/">Snaap.io</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -85,7 +84,7 @@
         <div class="container">
             <h2 class="mb-4">Enter Your Short URL to Get Analytics</h2>
             <em class="mb-2 text-muted">If you don't have generate one for you <a href="/">click</a></em>
-            <form id="urlForm mb-3 mt-3">
+            <form id="urlForm">
                 <div class="mb-3">
                     <label for="urlInput" class="form-label">Enter Short URL</label>
                     <input type="text" class="form-control" id="urlInput" placeholder="Enter Short URL">
@@ -106,9 +105,7 @@
     </section>
 
     <!-- Footer -->
-      <!-- Footer -->
-      <footer class="text-center text-lg-start bg-body-tertiary text-muted">
-        <!-- Section: Social media -->
+    <footer class="text-center text-lg-start bg-body-tertiary text-muted">
         <section class="d-flex justify-content-start justify-content-lg-between p-4 border-bottom">
             <div class="d-flex align-items-center justify-content-center w-100 social-link">
                 <a href="" class="me-4 text-reset">
@@ -130,15 +127,11 @@
                     <i class="fab fa-github"></i>
                 </a>
             </div>
-            <!-- Right -->
         </section>
         <section class="p-3" style="background-color: rgba(0, 0, 0, 0.05);">
             <div class="container text-start text-md-start mt-5">
-                <!-- Grid row -->
                 <div class="row mt-3">
-                    <!-- Grid column -->
                     <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                        <!-- Content -->
                         <h6 class="text-uppercase fw-bold mb-4">
                             <i class="fas fa-gem me-3"></i>Snaap.io
                         </h6>
@@ -147,77 +140,30 @@
                             analytics. Track link performance and engage users with ease.
                         </p>
                     </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            Products
-                        </h6>
-                        <p>
-                            <a href="/" class="text-reset">Snaap.io</a>
-                        </p>
-                        <p>
-                       <a href="/analytics" class="text-reset">Analytics</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">QR Code Generator</a>
-                        </p>
-                        <p>
-                            <a href="#!" class="text-reset">Image Uploader</a>
-                        </p>
+                        <h6 class="text-uppercase fw-bold mb-4">Products</h6>
+                        <p><a href="/" class="text-reset">Snaap.io</a></p>
+                        <p><a href="/analytics" class="text-reset">Analytics</a></p>
+                        <p><a href="#!" class="text-reset">QR Code Generator</a></p>
                     </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-md-0 mb-4">
-                        <!-- Links -->
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            Useful links
-                        </h6>
-                        <p>
-                            <a href="/about" class="text-reset">About Us</a>
-                        </p>
-                        <p>
-                            <a href="/contact-us" class="text-reset">Contact Us</a>
-                        </p>
-                        <p>
-                            <a href="/terms-and-conditions" class="text-reset">Terms and Conditions</a>
-                        </p>
-                        <p>
-                            <a href="/privacy-policy" class="text-reset">Privacy Policy</a>
-                        </p> <p>
-                            <a href="/blog" class="text-reset">Blog</a>
-                        </p>
+                        <h6 class="text-uppercase fw-bold mb-4">Useful links</h6>
+                        <p><a href="/about" class="text-reset">About Us</a></p>
+                        <p><a href="/contact-us" class="text-reset">Contact Us</a></p>
                     </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                        <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
                         <p><i class="fas fa-home me-3"></i> Noida Sector 62, Uttar Pradesh</p>
-                        <p>
-                            <i class="fas fa-envelope me-3"></i>
-                            info@snaap.io
-                        </p>
-                     
+                        <p><i class="fas fa-envelope me-3"></i> info@snaap.io</p>
                     </div>
-                    <!-- Grid column -->
                 </div>
-                <!-- Grid row -->
             </div>
         </section>
-        <!-- Section: Links  -->
-
-        <!-- Copyright -->
-        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);" >
-            © <span id="year"></span> Copyright:
-            <a class="text-reset fw-bold" href="https://snaap.io/">Snaap.io</a>
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            © <span id="year"></span> Copyright: <a class="text-reset fw-bold" href="https://snaap.io/">Snaap.io</a>
         </div>
-        <!-- Copyright -->
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
@@ -225,36 +171,46 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
 
     <script>
-        document.getElementById("year").textContent = new Date().getFullYear();
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set the current year in the footer
+            document.getElementById("year").textContent = new Date().getFullYear();
 
-        $('#urlForm').on('submit', function (e) {
-            e.preventDefault();
-            const url = $('#urlInput').val().trim();
-            if (!url) {
-                alert('Please enter a valid URL');
-                return;
-            }
+            // Handle form submission without jQuery
+            document.getElementById("urlForm").addEventListener('submit', function (e) {
+                e.preventDefault(); // Prevent default form submission
 
-            $.ajax({
-                url: '/api/getCount',
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ url }),
-                success: function (data) {
+                const urlInput = document.getElementById("urlInput");
+                const url = urlInput.value.trim();
+
+                if (!url) {
+                    alert('Please enter a valid URL');
+                    return;
+                }
+
+                // Make the API call using fetch
+                fetch('/api/getCount', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ url })
+                })
+                .then(response => response.json())
+                .then(data => {
                     if (data) {
-                        $('#shortUrl').text(data.count.urlCode);
-                        $('#longUrl').text(data.count.longUrl);
-                        $('#shortUrlLink').attr('href', data.count.shortUrl);
-                        $('#count').text(data.count.count);
-                        $('#dateCreated').text(data.count.date);
-                        $('#analyticsResult').show();
+                        document.getElementById("shortUrl").textContent = data.count.urlCode;
+                        document.getElementById("longUrl").textContent = data.count.longUrl;
+                        document.getElementById("shortUrlLink").setAttribute('href', data.count.shortUrl);
+                        document.getElementById("count").textContent = data.count.count;
+                        document.getElementById("dateCreated").textContent = data.count.date;
+                        document.getElementById("analyticsResult").style.display = 'block';
                     } else {
                         alert('Error fetching data');
                     }
-                },
-                error: function () {
-                    alert('Error fetching data');
-                }
+                })
+                .catch(() => {
+                    alert('Something went wrong');
+                });
             });
         });
     </script>
