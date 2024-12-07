@@ -5,14 +5,16 @@ const port = process.env.PORT || 3004;
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 require('dotenv').config();
+const cheerio = require('cheerio');
 
-app.use(bodyParser.json());  // To parse application/json content
+app.use(bodyParser.json());
+// To parse application/json content
+
 // Middleware to parse URL-encoded request body (common for form submissions)
 app.use(bodyParser.urlencoded({ extended: true }));  // To parse application/x-www-form-urlencoded content
 app.use(express.static(path.join(__dirname, 'public')));
 
 const { Blog } = require('./models/blog');
-
 
 // Mongoose Connection
 async function connectDB() {
@@ -49,21 +51,25 @@ app.get('/about', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/pages/about.html'))
 })
 
-
 // API routes
 app.get('/blog', async (req, res) => {
     const blogs = await Blog.find({});
     const randomBlog = blogs[0];
+
     const blogListHTML = blogs.map((data, index) => {
         const date = new Date(data.createdAt);
         const formattedDate = date.toLocaleDateString('en-GB'); // Formats to DD-MM-YYYY
         return `
-            <div class="col-md-6" key="${index}">
+            <div class="col-md-4" key="${index}">
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div class="col p-4 d-flex flex-column position-static">
+                    <div>
+                        <img src="${data?.imageURL}" alt="${data.categoryName}" style="height: 200px; width: 100%"/>
+                    </div>
                     <div class="d-flex justify-content-between">
+
                        <div> <strong class="d-inline-block mb-2 text-primary-emphasis">
-                            ${data.categoryName}
+                            ${data.heading}
                         </strong></div>
                         <div class="mb-1 text-body-secondary">${formattedDate}</div>
                         </div>
@@ -76,7 +82,7 @@ app.get('/blog', async (req, res) => {
                 </div>
             </div>`;
     }).join("");
-    
+
 
     const html = `<!doctype html>
 <html lang="en">
@@ -258,7 +264,6 @@ app.get('/blog', async (req, res) => {
             </div>
         </div>
     </nav>
-
     <div style="margin-top: 100px">
         <main class="container">
             <div class="p-2 p-md-5 mb-4 rounded text-emphasis bg-secondary" style="background-image: linear-gradient(178.7deg, rgb(126, 184, 253) 5.6%, rgb(198 223 255) 95.3%);">
@@ -273,7 +278,6 @@ app.get('/blog', async (req, res) => {
             </div>
         </main>
     </div>
-
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-body-tertiary text-muted" style="box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;">
         <!-- Section: Social media -->
@@ -369,8 +373,7 @@ app.get('/blog', async (req, res) => {
                         <p>
                             <i class="fas fa-envelope me-3"></i> info@snaap.io
                         </p>
-                        <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-                        <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+                     
                     </div>
                     <!-- Grid column -->
                 </div>
@@ -406,18 +409,20 @@ app.get('/blog', async (req, res) => {
 
 });
 
-app.get('/blog/:url', async(req, res) => {
+app.get('/blog/:url', async (req, res) => {
 
     const titleUrl = req.params.url;
 
-    const blog = await Blog.findOne({titleUrl});
+    const blog = await Blog.findOne({ titleUrl });
     const date = new Date(blog?.createdAt);
     const blogs = await Blog.find({});
+
+
 
     const blogListHTML = blogs.map((data, index) => {
         const date = new Date(data.createdAt);
         const formattedDate = date.toLocaleDateString('en-GB'); // Format date to DD-MM-YYYY
-    
+
         return `
             <li>
                 <a class="d-flex flex-column flex-lg-row gap-1 align-items-start align-items-lg-center py-1 link-body-emphasis text-decoration-none" href="/blog/${data.titleUrl}">
@@ -429,11 +434,55 @@ app.get('/blog/:url', async(req, res) => {
                 </a>
             </li>`;
     }).join(""); // Join all <li> elements into a single string
+
+
+    // Sitemap Generator.
+    function tocify(html) {
+        if (typeof html !== 'string' || !html.trim()) {
+            // If html is not a string or is empty, return default values
+            return {
+                modifiedHtml: '',
+                tocHtml: '',
+            };
+        }
+        const $ = cheerio.load(html); // Load the HTML content with cheerio
+        const headings = $("h1, h2, h3, h4, h5, h6");
+        const toc = [];
+        headings.each(function (index) {
+            const level = parseInt(this.tagName.replace("h", ""), 10); // Get heading level
+            const text = $(this).text().trim();
+            let id = $(this).attr("id") || text.toLowerCase().replace(/\s+/g, "-").replace(/[^\w\-]/g, "");
+            let uniqueId = id;
+            let counter = 1;
+            while ($(`#${uniqueId}`).length > 0) {
+                uniqueId = `${id}-${counter}`;
+                counter++;
+            }
+            $(this).attr("id", uniqueId);
+            // Add to TOC
+            toc.push({ level, text, id: uniqueId });
+        });
     
-    // Wrap the generated list items in a <ul> tag
+        // Generate TOC HTML
+        const tocHtml = toc
+            .map(({ level, text, id }) => `<li className="toc-level-${level}"><a href="#${id}">${text}</a></li>`)
+            .join("\n");
+        const tocWrapper = `<ul className="table-of-contents">\n${tocHtml}\n</ul>`;
+    
+        // Extract the content inside the body (excluding the <html> and <body> tags)
+        const modifiedHtml = $("body").html() || ''; // Ensure it's not undefined
+        const modifiedHtmlWrapped = `<div className="content-wrapper">\n${modifiedHtml}\n</div>`;
+    
+        return {
+            modifiedHtml: modifiedHtmlWrapped, // Modified HTML inside <div>
+            tocHtml: tocWrapper,               // TOC HTML
+        };
+    }
+    
+    const { modifiedHtml, tocHtml } = tocify(blog?.content || ''); // Ensure blog?.content is valid
+
+
     const finalHTML = `<ul class="list-unstyled">${blogListHTML}</ul>`;
-    
-    
     const formattedDate = date.toLocaleDateString('en-GB'); // Formats to DD-MM-YYYY
 
     const html = `<!doctype html>
@@ -586,6 +635,62 @@ app.get('/blog/:url', async(req, res) => {
         .social-link a i:hover {
             font-size: 2.1rem
         }
+            
+/* Basic Styles for Table of Contents */
+.table-of-contents {
+    font-family: Arial, sans-serif;
+    padding-left: 20px;
+    list-style-type: none;
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Styling each TOC item based on its heading level */
+.table-of-contents .toc-level-1 {
+    font-weight: bold;
+}
+
+.table-of-contents .toc-level-2 {
+    padding-left: 10px;
+}
+
+.table-of-contents .toc-level-3 {
+    padding-left: 20px;
+}
+
+.table-of-contents .toc-level-4 {
+    padding-left: 30px;
+}
+
+.table-of-contents .toc-level-5 {
+    padding-left: 40px;
+}
+
+.table-of-contents .toc-level-6 {
+    padding-left: 50px;
+}
+
+/* Hover effect for links in the TOC */
+.table-of-contents a {
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+.table-of-contents a:hover {
+    text-decoration: underline;
+}
+
+
+/* Style for anchor links to make them stand out */
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
     </style>
 </head>
 
@@ -618,33 +723,49 @@ app.get('/blog/:url', async(req, res) => {
         <main class="container">
             <div class="row g-5">
                 <div class="col-md-8">
-                    <h3 class="pb-4 mb-4 fst-italic border-bottom">
-                        ${blog?.categoryName}
-                    </h3>
+                    <h1 class="pb-1 mb-2 border-bottom" style="font-size: 1.3rem">
+                        ${blog?.heading}
+                    </h1>
+                  
                     <article class="blog-post">
                         <h2 class="display-8 link-body-emphasis mb-1">${blog?.title}</h2>
                         <p class="blog-post-meta">${formattedDate} by ${blog?.postBy}</p>
-                        ${blog?.content}
+
+  <div>
+                        <img src="${blog?.imageURL}" alt="${blog?.heading}" style="height: 400px; width: 100%"/>
+                    </div>
+                        <div>
+                            
+                            ${tocHtml}
+                      
+                        </div>
+                        <div>
+                        ${modifiedHtml}
+                        
+                        </div>
                     </article>
                 </div>
 
                 <div class="col-md-4">
                     <div class="position-sticky" style="top: 2rem;">
+
+                     
+
                         <div class="p-1 mb-3 bg-body-tertiary rounded">
-                            <h4 class="fst-italic">About</h4>
+                            <h4 class="">About</h4>
                             <p class="mb-0">At Snaap.io, we aim to empower you with simple, yet powerful tools that enhance your digital workflows. Whether you're sharing links, tracking performance, or creating custom QR codes, we are here to make your online presence
                                 seamless..</p>
                         </div>
 
                         <div>
-                            <h4 class="fst-italic">Recent posts</h4>
+                            <h4 class="">Recent posts</h4>
                             ${finalHTML}
                         </div>
 
 
                         <div class="p-4">
-                            <h4 class="fst-italic">Elsewhere</h4>
-                            <ol class="list-unstyled">
+                            <h4 class="">Elsewhere</h4>
+                            <ol class="list-unstyled d-flex gap-3">
                                 <li><a href="https://github.com/codewithcraze">GitHub</a></li>
                                 <li><a href="https://www.linkedin.com/in/codewithcraze/">Linkedin</a></li>
                                 <li><a href="https://www.instagram.com/codewithdeepak.in">Instagram</a></li>
@@ -753,8 +874,7 @@ app.get('/blog/:url', async(req, res) => {
                         <p>
                             <i class="fas fa-envelope me-3"></i> info@snaap.io
                         </p>
-                        <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-                        <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+                     
                     </div>
                     <!-- Grid column -->
                 </div>

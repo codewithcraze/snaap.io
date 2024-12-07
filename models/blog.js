@@ -71,11 +71,16 @@ const BlogSchema = new mongoose.Schema({
         type: Boolean,
         default: true, // Default status is true (published)
         enum: [true, false] // Ensures status is either true or false
+    },
+    imageURL: {
+        type: String,
+        default: ''
     }
+
 }, {
     timestamps: true // Adds createdAt and updatedAt timestamps
 });
 
 const Blog = mongoose.model('Blog', BlogSchema);
 
-module.exports = {Blog};
+module.exports = { Blog };
