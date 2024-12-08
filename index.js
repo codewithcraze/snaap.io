@@ -468,13 +468,13 @@ app.get('/blog/:url', async (req, res) => {
 
         // Generate TOC HTML
         const tocHtml = toc
-            .map(({ level, text, id }) => `<li className="toc-level-${level}"><a href="#${id}">${text}</a></li>`)
+            .map(({ level, text, id }) => `<li class="toc-level-${level}"><a href="#${id}">${text}</a></li>`)
             .join("\n");
-        const tocWrapper = `<ul className="table-of-contents">\n${tocHtml}\n</ul>`;
+        const tocWrapper = `<ul class="table-of-contents">\n${tocHtml}\n</ul>`;
 
         // Extract the content inside the body (excluding the <html> and <body> tags)
         const modifiedHtml = $("body").html() || ''; // Ensure it's not undefined
-        const modifiedHtmlWrapped = `<div className="content-wrapper">\n${modifiedHtml}\n</div>`;
+        const modifiedHtmlWrapped = `<div class="content-wrapper">\n${modifiedHtml}\n</div>`;
 
         return {
             modifiedHtml: modifiedHtmlWrapped, // Modified HTML inside <div>
@@ -646,6 +646,10 @@ app.get('/blog/:url', async (req, res) => {
     list-style-type: none;
     margin: 0;
     font-size: 16px;
+}
+.content-wrapper img{
+    max-height: 300px !important;
+    width: 100% !important;
 }
 
 /* Styling each TOC item based on its heading level */
