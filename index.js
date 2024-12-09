@@ -19,7 +19,10 @@ const Url = require('./models/sortUrl');
 // Mongoose Connection
 async function connectDB() {
     try {
-        await mongoose.connect(process.env.MONGO_URI);
+        await mongoose.connect(process.env.MONGO_URI, {
+            serverSelectionTimeoutMS: 60000,  // Increase server selection timeout to 30 seconds
+            socketTimeoutMS: 60000,          // Increase socket timeout to 30 seconds
+        });
         console.log('MongoDB connected successfully');
     } catch (error) {
         console.log('Error connecting to MongoDB:', error.message);
