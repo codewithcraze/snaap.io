@@ -651,7 +651,7 @@ app.get('/blog/:url', async (req, res) => {
     font-size: 16px;
 }
 .content-wrapper img{
-    max-height: 300px !important;
+    max-height: 420px !important;
     width: 100% !important;
 }
 
