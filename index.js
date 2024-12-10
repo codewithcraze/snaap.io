@@ -20,8 +20,9 @@ const Url = require('./models/sortUrl');
 async function connectDB() {
     try {
         await mongoose.connect(process.env.MONGO_URI, {
-            serverSelectionTimeoutMS: 60000,  // Increase server selection timeout to 30 seconds
-            socketTimeoutMS: 60000,          // Increase socket timeout to 30 seconds
+           serverSelectionTimeoutMS: 30000, // Wait up to 30 seconds to select a server
+           socketTimeoutMS: 45000, // Wait up to 45 seconds for a socket to remain open
+           connectTimeoutMS: 30000
         });
         console.log('MongoDB connected successfully');
     } catch (error) {
