@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Build a simple URL shortener with Node.js">
+    <title>Building a Simple URL Shortener with Node.js</title>
+
+    <!-- Link to Prism.js CSS for code highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        h1 {
+            margin: 0;
+        }
+        main {
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        pre, code {
+            font-size: 1.1em;
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        pre {
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Building a Simple URL Shortener with Node.js</h1>
+    </header><main class="container">
+        <h2>Introduction</h2>
+        <p>
+            In today’s digital world, short URLs have become an essential part of online communication,
+            allowing users to share links in a more manageable and user-friendly way. Creating your own URL 
+            shortener from scratch can be a fun and educational project, and in this blog, we’ll walk through 
+            how to build a basic URL shortener application using <strong>Node.js</strong>.
+        </p>
+
+        <h2>What is a URL Shortener?</h2>
+        <p>A URL shortener is an application that takes long URLs and turns them into shorter, more compact links. 
+           When a user clicks on the short link, it redirects to the original long URL. URL shorteners are used for 
+           simplifying complex web addresses, tracking click data, or just making links look cleaner.</p>
+
+        <h2>Why Build a URL Shortener?</h2>
+        <ul>
+            <li><strong>Customization</strong>: You can control the look and functionality of the service.</li>
+            <li><strong>Learning Experience</strong>: It's a great way to practice backend development, working with databases, and understanding how redirects work.</li>
+            <li><strong>Data Collection</strong>: You can log or analyze traffic using your own system.</li>
+        </ul>
+
+        <h2>Prerequisites</h2>
+        <p>To follow along with this tutorial, you should have:</p>
+        <ul>
+            <li><strong>Node.js</strong> installed. If you don't have it, download it from <a href="https://nodejs.org/" target="_blank">here</a>.</li>
+            <li>Basic knowledge of <strong>JavaScript</strong> and <strong>Node.js</strong>.</li>
+            <li>A <strong>code editor</strong> (such as VS Code).</li>
+        </ul>
+
+        <h2>Step 1: Set Up Your Project</h2>
+        <p>Create a new directory for your project:</p>
+        <pre><code class="language-bash">
+mkdir url-shortener
+cd url-shortener
+npm init -y</code></pre>
+
+        <p>Next, install the necessary dependencies:</p>
+        <pre><code class="language-bash">npm install express shortid</code></pre>
+
+        <h2>Step 2: Your Server Setup</h2>
+        <p>Create a new file called <code>server.js</code> in your project directory. This file will hold all the logic for our URL shortener app.</p>
+        <pre><code class="language-javascript">
+const express = require('express');
+const shortid = require('shortid');
+const app = express();
+const port = 3000;
+
+// In-memory database (you can replace this with a real database later)
+const urlDatabase = {};
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+// Home route to show a simple HTML form
+app.get('/', (req, res) => {
+  res.send(`Send Your Custom HTML Page`);
+});
+
+// Route to handle URL shortening
+app.post('/shorten', (req, res) => {
+  const originalUrl = req.body.url;
+
+  if (!originalUrl) {
+    return res.status(400).json({ error: 'URL is required' });
+  }
+  // Generate a unique short URL code
+  const shortUrlCode = shortid.generate();
+  // Save the original URL with its short code in the "database"
+  urlDatabase[shortUrlCode] = originalUrl;
+  // Return the short URL
+  const shortUrl = `http://localhost:${port}/${shortUrlCode}`;
+  res.json({ shortUrl });
+});
+
+// Route to handle redirection from the short URL
+app.get('/:shortCode', (req, res) => {
+  const shortCode = req.params.shortCode;
+
+  const originalUrl = urlDatabase[shortCode];
+
+  if (!originalUrl) {
+    return res.status(404).send('URL not found');
+  }
+
+  // Redirect to the original URL
+  res.redirect(originalUrl);
+});
+
+app.listen(port, () => {
+  console.log(`URL shortener app running at http://localhost:${port}`);
+});
+        </code></pre>
+
+        <h2>Step 3: How It Works</h2>
+        <ol>
+            <li><strong>Home Route (`/`)</strong>: When you visit the root URL of your application, you'll be presented with an HTML form where you can input the long URL you want to shorten.</li>
+            <li><strong>URL Shortening (`/shorten`)</strong>: When the form is submitted, a POST request is made to `/shorten`. The server generates a unique short URL code using the <code>shortid</code> package and saves it in the in-memory object (acting as a database).</li>
+            <li><strong>Routing the User (`/:shortCode`)</strong>: When someone accesses a short URL (e.g., <code>http://localhost:3000/abc123</code>), the server queries the database for a corresponding long URL. If found, the user is redirected to the original URL.</li>
+        </ol>
+
+        <h2>Step 4: Running the Application</h2>
+        <pre><code class="language-bash">node server.js</code></pre>
+
+        <h2>Step 5: Test the URL Shortener</h2>
+        <ol>
+            <li>Access <code>http://localhost:3000</code></li>
+            <li>Enter a long URL in the input field, then submit the form.</li>
+            <li>You should see a short URL, for example, <code>http://localhost:3000/abc123</code>.</li>
+            <li>Clicking the short URL should redirect you to the original long URL.</li>
+        </ol>
+
+        <h2>Conclusion</h2>
+        <p>Congratulations! You've created a simple URL shortener application with Node.js. You can further enhance this project by adding features like:</p>
+        <ul>
+            <li><strong>Persistent Storage</strong>: Use a real database like MongoDB.</li>
+            <li><strong>Analytics</strong>: Track how many times the shortened URL is clicked.</li>
+            <li><strong>User Authentication</strong>: Allow users to manage their own URLs.</li>
+            <li><strong>Front-End Improvements</strong>: Build a more interactive and advanced front-end.</li>
+        </ul>
+
+        <p>Happy coding!</p>
+    </main>
+   <pre><code class="language-html">
+        &lt;h2&gt;Conclusion&lt;/h2&gt;
+        &lt;p&gt;Congratulations! You've created a simple URL shortener application with Node.js. You can further enhance this project by adding features like:&lt;/p&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;strong&gt;Persistent Storage&lt;/strong&gt;: Use a real database like MongoDB.&lt;/li&gt;
+            &lt;li&gt;&lt;strong&gt;Analytics&lt;/strong&gt;: Track how many times the shortened URL is clicked.&lt;/li&gt;
+            &lt;li&gt;&lt;strong&gt;User Authentication&lt;/strong&gt;: Allow users to manage their own URLs.&lt;/li&gt;
+            &lt;li&gt;&lt;strong&gt;Front-End Improvements&lt;/strong&gt;: Build a more interactive and advanced front-end.&lt;/li&gt;
+        &lt;/ul&gt;
+    </code></pre>
+
+    <!-- Link to Prism.js JS for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+</body>
+</html>
