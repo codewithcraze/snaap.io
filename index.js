@@ -59,6 +59,10 @@ app.get('/about', (req, res) => {
 app.get('/analytics', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/pages/analytics.html'))
 })
+
+app.get('/robots.txt', (req ,res) => {
+    res.sendFile(path.join(__dirname, 'public', '/pages/robots.txt'));
+})
 // API routes
 app.get('/blog', async (req, res) => {
     const blogs = await Blog.find({});
