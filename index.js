@@ -641,6 +641,7 @@ app.get('/blog/:url', async (req, res) => {
         .social-link a i:hover {
             font-size: 2.1rem
         }
+        
             
 /* Basic Styles for Table of Contents */
 .table-of-contents {
@@ -700,6 +701,44 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+/* code snippts: */
+  header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        h1 {
+            margin: 0;
+        }
+        main {
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        pre, code {
+            font-size: 1.1em;
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        pre {
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+
 
     </style>
 </head>
