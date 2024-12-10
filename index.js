@@ -735,10 +735,6 @@ a:hover {
             color: #3498db;
             text-decoration: none;
         }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
 
 
 
