@@ -6,17 +6,17 @@
 	<url>
 		<loc>https://www.snaap.io/</loc>
 		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.80</priority>
+		<priority>1.00</priority>
 	</url>
 	<url>
 		<loc>https://www.snaap.io/analytics</loc>
 		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.80</priority>
+		<priority>1.00</priority>
 	</url>
 	<url>
 		<loc>https://www.snaap.io/about</loc>
 		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.80</priority>
+		<priority>1.00</priority>
 	</url>
 	<url>
 		<loc>https://www.snaap.io/contact-us</loc>
@@ -36,7 +36,7 @@
 	<url>
 		<loc>https://www.snaap.io/blog</loc>
 		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.80</priority>
+		<priority>1.00</priority>
 	</url>
 	<url>
 		<loc>https://www.snaap.io/blog/my-web-crawler</loc>
