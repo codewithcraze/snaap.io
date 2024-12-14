@@ -448,9 +448,14 @@ app.get('/blog/:url', async (req, res) => {
     </nav>
     <div style="margin-top: 100px">
         <main class="container">
+        
+               <nav aria-label="breadcrumb">
+          <ol class="breadcrumb" id="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+          </ol>
+        </nav>
             <div class="row g-5">
                 <div class="col-md-8">
-            
                     <article class="blog-post">
                         <h1 class="display-8 link-body-emphasis mb-1">${blog?.heading}</h1>
                         <p class="blog-post-meta">${formattedDate} by ${blog?.postBy}</p>
@@ -630,6 +635,58 @@ app.get('/blog/:url', async (req, res) => {
         document.getElementById("year").textContent = new Date().getFullYear();
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5723306635822257" crossorigin="anonymous"></script>
+    
+    <script>
+// Function to update the breadcrumb dynamically based on the current URL
+function updateBreadcrumb() {
+debugger;
+  const breadcrumbElement = document.getElementById('breadcrumb');
+  const url = window.location.pathname; // Get the current URL path
+
+  // Split the URL path into segments (ignoring leading empty segments)
+  const pathSegments = url.split('/').filter(segment => segment);
+
+  // Clear previous breadcrumb items (except the Home link)
+  breadcrumbElement.innerHTML = '<li class="breadcrumb-item"><a href="/">Home</a></li>';
+
+  // Loop through each path segment and add to breadcrumb
+  pathSegments.forEach((segment, index) => {
+    const breadcrumbItem = document.createElement('li');
+    breadcrumbItem.classList.add('breadcrumb-item');
+    
+    // Capitalize the first letter of each word in the segment and replace dashes with spaces
+    const displayText = segment
+      .split('-') // Split segment by hyphen
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
+      .join(' '); // Join the words with spaces
+
+    // Create a link for each breadcrumb item (except the last one)
+    const breadcrumbLink = document.createElement('a');
+    breadcrumbLink.href = '/' + pathSegments.slice(0, index + 1).join('/');
+    breadcrumbLink.innerText = displayText;
+
+    // Append the link to the breadcrumb item
+    breadcrumbItem.appendChild(breadcrumbLink);
+    
+    // Append the breadcrumb item to the breadcrumb list
+    breadcrumbElement.appendChild(breadcrumbItem);
+  });
+
+  // Make the last breadcrumb item active (no link for the current page)
+  const lastBreadcrumb = breadcrumbElement.lastElementChild;
+  if (lastBreadcrumb) {
+    lastBreadcrumb.classList.add('active');
+  }
+}
+
+// Run the function to update the breadcrumb when the page loads
+window.addEventListener('DOMContentLoaded', updateBreadcrumb);
+
+// If the URL changes (e.g., user uses back/forward navigation), update the breadcrumb
+window.addEventListener('popstate', updateBreadcrumb);
+
+</script>
+
 
 </body>
 
