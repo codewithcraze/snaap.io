@@ -119,6 +119,8 @@ app.get('/blog', async (req, res) => {
 
     <meta name="keywords" 
       content="Snaap.io blog, digital marketing, SEO tips, URL shortener blog, link tracking blog, online tools, digital trends, blog articles, online marketing, link management, content marketing, best practices for SEO, Mern Stack, Javascript Projects, React Projects">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5723306635822257"
+     crossorigin="anonymous"></script>
 
 
     <link rel="icon" type="image/png" href="https://storage.googleapis.com/snaap/1734096819786-logo.avif">
@@ -399,6 +401,8 @@ app.get('/blog/:url', async (req, res) => {
        <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5723306635822257"
+     crossorigin="anonymous"></script>
     <meta name="description" content="${blog?.metaDescription}">
     <meta name="keywords" content="${blog?.metaKeywords}">
         <link rel="icon" type="image/png" href="https://storage.googleapis.com/snaap/1734096819786-logo.avif">
