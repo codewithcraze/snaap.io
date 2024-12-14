@@ -1,76 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
-	xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-	<!--  created with Free Online Sitemap Generator www.xml-sitemaps.com  -->
-	<url>
-		<loc>https://www.snaap.io/</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>1.00</priority>
-	</url>
-	<url>
-		<loc>https://www.snaap.io/analytics</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>1.00</priority>
-	</url>
-	<url>
-		<loc>https://www.snaap.io/about</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>1.00</priority>
-	</url>
-	<url>
-		<loc>https://www.snaap.io/contact-us</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://www.snaap.io/terms-and-conditions</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://www.snaap.io/privacy-policy</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.80</priority>
-	</url>
-	<url>
-		<loc>https://www.snaap.io/blog</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>1.00</priority>
-	</url>
-	<url>
-		<loc>https://www.snaap.io/blog/my-web-crawler</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.64</priority>
-	</url>
-	<url>
-		<loc>https://www.snaap.io/blog/generate-table-of-content</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.64</priority>
-	</url>
-	<url>
-		<loc>https://www.snaap.io/blog/short-url-benefits</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.64</priority>
-	</url>
-	<url>
-		<loc>https://www.snaap.io/blog/4-easy-steps-to-short-url</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.64</priority>
-	</url>
-	<url>
-		<loc>https://www.snaap.io/blog/preventing-broken-links</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.64</priority>
-	</url>
-	<url>
-		<loc>https://www.snaap.io/blog/best-stack-to-learn-in-2025</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.64</priority>
-	</url>
-	<url>
-		<loc>https://www.snaap.io/blog/send-email-through-program</loc>
-		<lastmod>2024-12-09T11:29:25+00:00</lastmod>
-		<priority>0.64</priority>
-	</url>
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url>
+  <loc>https://www.snaap.io/</loc>
+ <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/analytics</loc>
+  <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/qr-code-generator</loc>
+   <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/blog</loc>
+  <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/about</loc>
+ <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/contact-us</loc>
+  <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/terms-and-conditions</loc>
+ <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/privacy-policy</loc>
+ <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/blog/short-url-benefits</loc>
+  <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/blog/my-web-crawler</loc>
+  <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/blog/generate-table-of-content</loc>
+  <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/blog/4-easy-steps-to-short-url</loc>
+  <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/blog/preventing-broken-links</loc>
+  <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/blog/best-stack-to-learn-in-2025</loc>
+  <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/blog/send-email-through-program</loc>
+  <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/blog/myths-vs-facts</loc>
+  <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.snaap.io/blog/how-to-create-shorturl-application-in-node</loc>
+  <lastmod>2024-12-14T10:54:26+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
 </urlset>
