@@ -119,17 +119,8 @@ app.get('/blog', async (req, res) => {
 
     <meta name="keywords" 
       content="Snaap.io blog, digital marketing, SEO tips, URL shortener blog, link tracking blog, online tools, digital trends, blog articles, online marketing, link management, content marketing, best practices for SEO, Mern Stack, Javascript Projects, React Projects">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5723306635822257"
-     crossorigin="anonymous"></script><script type="text/javascript">
-	atOptions = {
-		'key' : 'de4a8b561147b81e9ad910f38de21db5',
-		'format' : 'iframe',
-		'height' : 60,
-		'width' : 468,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/de4a8b561147b81e9ad910f38de21db5/invoke.js"></script>
+   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5723306635822257"
+     crossorigin="anonymous"></script>
 
 
     <link rel="icon" type="image/png" href="https://storage.googleapis.com/snaap/1734096819786-logo.avif">
