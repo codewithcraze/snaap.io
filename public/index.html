@@ -1,92 +1,395 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-adsense-account" content="ca-pub-5723306635822257">
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>Snaap.io | Just Snap It</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
         integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
     <meta name="description"
-        content="Shorten, share, and track your URLs effortlessly with Snaap.io. Simplify your links and gain insights with real-time analytics and detailed tracking reports. Perfect for businesses and individuals alike!">
+        content="URL Shorten, share, and track your URLs effortlessly with Snaap.io a leading IT products platform. Simplify your links and gain insights with real-time analytics and detailed tracking reports. Perfect for businesses and individuals alike!">
     <meta name="keywords"
-        content="URL shortener, link shortener, Snaap.io, shorten links, custom URLs, URL tracking, link analytics, URL management, real-time analytics, link sharing, custom link branding">
-    
+        content="URL shortener, link shortener, Snaap.io, shorten links, custom URLs, URL tracking, link analytics, URL management, real-time analytics, link sharing, custom link branding, QR code generator, create QR code, free QR code generator, custom QR code, QR code for URL">
     <link rel="stylesheet" href="./style.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="icon" type="image/png" href="./logo.avif">
-    <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MFDQKNQS');</script>
-<!-- End Google Tag Manager -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" type="image/png" href="https://storage.googleapis.com/snaap/1734096819786-logo.avif">
 </head>
-
 <body>
-    <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFDQKNQS"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5 fixed-top"
-    style="background-color: rgba(0, 0, 0, 0.05);">
-    <div class="container-fluid bg-light">
-        <a class="navbar-brand" href="/">Snaap.io</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse " id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/analytics">Analytics</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">QR Code Generator</a>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-lg  mb-5 fixed-top">
+        <div class="container-fluid nav-bg">
+            <a class="navbar-brand" href="/">Snaap.io</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/analytics">Analytics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qr-code-generator">QR Code Generator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog">Blogs</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <div class="container main">
-        <header class="my-5 text-center">
-            <h1>ShortURL Generator</h1>
-            <p>Shorten your URLs and make them easy to share!</p>
-        </header>
+        <div class="row  border-bottom">
+            <div class="col-lg-6 col-md-12 d-flex justify-content-center align-items-center flex-column">
+                <header class="my-5 text-center">
+                    <h1>ShortURL Generator</h1>
+                    <p>Shorten your URLs and make them easy to share!</p>
+                </header>
+                <main class="d-flex justify-content-center align-items-center flex-column w-100">
+                    <!-- Input Section -->
+                    <div class="message"></div>
+                    <div class="input-section d-flex justify-content-center align-items-center flex-column w-50">
+                        <input type="text" id="longUrl" placeholder="Paste your long URL here..."
+                            class="form-control mb-3" />
+                        <button id="generateBtn" class="btn btn-primary">Shorten URL</button>
+                    </div>
+                    <!-- Result Section -->
+                    <div class="result-section text-center">
+                        <p id="shortUrl" class="hidden">Short URL: <a href="#" id="shortLink" target="_blank">Copy
+                                It</a></p>
+                        <button id="copyBtn" class="hidden btn btn-secondary mt-4">Copy It</button>
+                    </div>
+                </main>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="mt-5">
+                    <div class="row">
+                        <div class="col-lg-12 mx-auto">
+                            <!-- Stepper -->
+                            <div class="stepper">
 
-        <main class="d-flex justify-content-center align-items-center flex-column">
-            <!-- Input Section -->
-            <div class="message"></div>
-            <div class="input-section d-flex justify-content-center align-items-center flex-column w-50">
-                <input type="text" id="longUrl" placeholder="Paste your long URL here..." class="form-control mb-3" />
-                <button id="generateBtn" class="btn btn-primary">Generate Short URL</button>
+                                <!-- Step 1 -->
+                                <div class="stepper-item">
+                                    <div class="step-number">1</div>
+                                    <div class="step-content">
+                                        <h5 class="step-title">Enter Your Long URL</h5>
+                                        <p class="step-description">Type or paste the URL you want to shorten into the
+                                            input box on the homepage.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Step 3 -->
+                                <div class="stepper-item">
+                                    <div class="step-number">2</div>
+                                    <div class="step-content">
+                                        <h5 class="step-title">Generate Short URL</h5>
+                                        <p class="step-description">Click on the “Shorten URL” button to generate your
+                                            short link instantly.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Step 4 -->
+                                <div class="stepper-item">
+                                    <div class="step-number">3</div>
+                                    <div class="step-content">
+                                        <h5 class="step-title">Copy and Share</h5>
+                                        <p class="step-description">Copy your newly shortened URL and share it anywhere
+                                            you want—social media, email, etc.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Step 5 -->
+                                <div class="stepper-item">
+                                    <div class="step-number">4</div>
+                                    <div class="step-content">
+                                        <h5 class="step-title">Track Analytics (Optional)</h5>
+                                        <p class="step-description">At <a href="/analytics">Analytics</a> Section (e.g.,
+                                            click counts, original URL, URL Id).</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <!-- Result Section -->
-            <div class="result-section text-center">
-                <p id="shortUrl" class="hidden">Short URL: <a href="#" id="shortLink" target="_blank">Copy It</a></p>
-                <button id="copyBtn" class="hidden btn btn-secondary mt-4">Copy It</button>
+        </div>
+        <section>
+            <div class="row gy-4 mt-5 mb-5">
+                <h3 class="text-center"><strong>Our Services</strong></h3>
+                <!-- URL Shortener Service -->
+                <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-item position-relative border rounded shadow-sm p-4">
+                        <div class="icon mb-3">
+                            <i class="fas fa-link fa-3x text-primary"></i> <!-- Font Awesome Icon -->
+                        </div>
+                            <h3 class="h5">URL Shortener</h3>
+                        <p>Easily shorten long URLs and share them with your audience. Use these Urls for marketing and
+                            on social media.</p>
+                    </div>
+                </div>
+                <!-- Analytics Service -->
+                <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-item position-relative border rounded shadow-sm p-4">
+                        <div class="icon mb-3">
+                            <i class="fas fa-chart-line fa-3x text-success"></i> <!-- Font Awesome Icon -->
+                        </div>
+                            <h3 class="h5">Analytics</h3>
+                        <p>Get detailed insights into your website's traffic, user behavior, and conversion rates with
+                            our powerful analytics tools.</p>
+                    </div>
+                </div>
+
+                <!-- QR Code Generator -->
+                <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-item position-relative border rounded shadow-sm p-4">
+                        <div class="icon mb-3">
+                            <i class="fas fa-qrcode fa-3x text-warning"></i> <!-- Font Awesome Icon -->
+                        </div>
+                            <h3 class="h5">QR Code Generator</h3>
+                        <p>Generate custom QR codes for URLs, text, vCards, and more. Perfect for marketing, business
+                            cards, and quick data sharing.</p>
+                    </div>
+                </div>
+
+                <!-- MERN Stack Development -->
+                <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-item position-relative border rounded shadow-sm p-4">
+                        <div class="icon mb-3">
+                            <i class="fab fa-node-js fa-3x text-danger"></i> <!-- Font Awesome Icon -->
+                        </div>
+                   
+                            <h3 class="h5">MERN Stack Development</h3>
+                    
+                        <p>Build powerful, scalable web applications using MongoDB, Express.js, React, and Node.js — the
+                            cutting-edge stack for modern apps.</p>
+                    </div>
+                </div>
+
+                <!-- Technology Blog -->
+                <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-item position-relative border rounded shadow-sm p-4">
+                        <div class="icon mb-3">
+                            <i class="fas fa-blog fa-3x text-info"></i> <!-- Font Awesome Icon -->
+                        </div>
+                   
+                            <h3 class="h5">Technology Blog</h3>
+                    
+                        <p>Stay updated with the latest in technology, development trends, and industry insights through
+                            our regularly updated blog.</p>
+                    </div>
+                </div>
+
+                <!-- Additional Service 1 -->
+                <div class="col-lg-4 col-md-6 aos-init aos-animate" data-aos="fade-up" data-aos-delay="600">
+                    <div class="service-item position-relative border rounded shadow-sm p-4">
+                        <div class="icon mb-3">
+                            <i class="fas fa-tools fa-3x text-dark"></i> <!-- Font Awesome Icon -->
+                        </div>
+                   
+                            <h3 class="h5">Web Tools & Utilities</h3>
+                    
+                        <p>Explore a variety of online tools and utilities to help streamline your development workflow
+                            and increase productivity.</p>
+                    </div>
+                </div>
+
             </div>
-        </main>
+        </section>
+        <section id="faq" class="faq-section py-5 border-top mb-3">
+            <div class="container">
+                <h2 class="text-center mb-4">Frequently Asked Questions (FAQ)</h2>
+
+                <!-- Bootstrap Accordion for 4 FAQs side by side -->
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="accordion" id="faqAccordion1">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqHeading1">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faqCollapse1" aria-expanded="false"
+                                        aria-controls="faqCollapse1">
+                                        What is URL Shortening?
+                                    </button>
+                                </h2>
+                                <div id="faqCollapse1" class="accordion-collapse collapse" aria-labelledby="faqHeading1"
+                                    data-bs-parent="#faqAccordion1">
+                                    <div class="accordion-body">
+                                        URL shortening is the process of creating a shorter version of a long URL,
+                                        making it easier to share and track.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="accordion" id="faqAccordion2">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqHeading2">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faqCollapse2" aria-expanded="false"
+                                        aria-controls="faqCollapse2">
+                                        How do QR codes work?
+                                    </button>
+                                </h2>
+                                <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2"
+                                    data-bs-parent="#faqAccordion2">
+                                    <div class="accordion-body">
+                                        QR codes are scannable images that store data such as URLs, text, or contact
+                                        information, making it easy to access information quickly.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="accordion" id="faqAccordion3">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqHeading3">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faqCollapse3" aria-expanded="false"
+                                        aria-controls="faqCollapse3">
+                                        What is Analytics in URL Shortening?
+                                    </button>
+                                </h2>
+                                <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3"
+                                    data-bs-parent="#faqAccordion3">
+                                    <div class="accordion-body">
+                                        Analytics in URL shortening lets you track data such as click-through rates,
+                                        geographic location, and device types of users who click on the short links.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="accordion" id="faqAccordion4">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqHeading4">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faqCollapse4" aria-expanded="false"
+                                        aria-controls="faqCollapse4">
+                                        What is MERN Stack?
+                                    </button>
+                                </h2>
+                                <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4"
+                                    data-bs-parent="#faqAccordion4">
+                                    <div class="accordion-body">
+                                        MERN stands for MongoDB, Express.js, React, and Node.js, a popular stack used
+                                        for building modern web applications.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second Row of 4 FAQs -->
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="accordion" id="faqAccordion5">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqHeading5">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faqCollapse5" aria-expanded="false"
+                                        aria-controls="faqCollapse5">
+                                        How to Generate a QR Code?
+                                    </button>
+                                </h2>
+                                <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5"
+                                    data-bs-parent="#faqAccordion5">
+                                    <div class="accordion-body">
+                                        You can generate QR codes by using online tools or custom scripts that convert
+                                        URLs, text, or other data into a scannable format.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="accordion" id="faqAccordion6">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqHeading6">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faqCollapse6" aria-expanded="false"
+                                        aria-controls="faqCollapse6">
+                                        Is MERN Stack Secure?
+                                    </button>
+                                </h2>
+                                <div id="faqCollapse6" class="accordion-collapse collapse" aria-labelledby="faqHeading6"
+                                    data-bs-parent="#faqAccordion6">
+                                    <div class="accordion-body">
+                                        Yes, the MERN stack is highly secure with the proper implementation of
+                                        authentication, authorization, and data validation.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="accordion" id="faqAccordion7">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqHeading7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faqCollapse7" aria-expanded="false"
+                                        aria-controls="faqCollapse7">
+                                        What Are the Benefits of Analytics?
+                                    </button>
+                                </h2>
+                                <div id="faqCollapse7" class="accordion-collapse collapse" aria-labelledby="faqHeading7"
+                                    data-bs-parent="#faqAccordion7">
+                                    <div class="accordion-body">
+                                        Analytics help you understand user behavior, track conversion rates, and
+                                        optimize your website or marketing strategies.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="accordion" id="faqAccordion8">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faqHeading8">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faqCollapse8" aria-expanded="false"
+                                        aria-controls="faqCollapse8">
+                                        How Secure Are QR Codes?
+                                    </button>
+                                </h2>
+                                <div id="faqCollapse8" class="accordion-collapse collapse" aria-labelledby="faqHeading8"
+                                    data-bs-parent="#faqAccordion8">
+                                    <div class="accordion-body">
+                                        QR codes themselves are secure, but the data they link to (e.g., URLs) should be
+                                        trusted to prevent phishing or malware risks.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <!-- Footer -->
@@ -102,9 +405,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <a href="" class="me-4 text-reset"><i class="fab fa-github"></i></a>
             </div>
         </section>
-
         <section class="p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-            <div class="container text-start text-md-start mt-5">
+            <div class="text-start text-md-start mt-5">
                 <div class="row mt-3">
                     <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">
@@ -117,8 +419,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <h6 class="text-uppercase fw-bold mb-4">Products</h6>
                         <p><a href="/" class="text-reset">Snaap.io</a></p>
                         <p><a href="/analytics" class="text-reset">Analytics</a></p>
-                        <p><a href="#!" class="text-reset">QR Code Generator</a></p>
-                        <p><a href="#!" class="text-reset">Image Uploader</a></p>
+                        <p><a href="/qr-code-generator" class="text-reset">QR Code Generator</a></p>
                     </div>
                     <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-md-0 mb-4">
                         <h6 class="text-uppercase fw-bold mb-4">Useful links</h6>
@@ -136,56 +437,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
             </div>
         </section>
-
-        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        <div class="text-center p-4 nav-bg border-top">
             © <span id="year"></span> Copyright:
             <a class="text-reset fw-bold" href="https://snaap.io/">Snaap.io</a>
         </div>
     </footer>
-
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5723306635822257"
-    crossorigin="anonymous"></script>
-
-
-     <!-- Optional JavaScript; Bootstrap Bundle with Popper -->
+        crossorigin="anonymous"></script>
+    <!-- Optional JavaScript; Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
-
-
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         const messageElement = document.querySelector('.message');
-       document.getElementById('generateBtn').addEventListener('click', async () => {
-    const longUrl = document.getElementById('longUrl').value;
-    const shortUrlElement = document.getElementById('shortUrl');
-    const shortLinkElement = document.getElementById('shortLink');
-    const copyBtnElement = document.getElementById('copyBtn');
+        document.getElementById('generateBtn').addEventListener('click', async () => {
+            const longUrl = document.getElementById('longUrl').value;
+            const shortUrlElement = document.getElementById('shortUrl');
+            const shortLinkElement = document.getElementById('shortLink');
+            const copyBtnElement = document.getElementById('copyBtn');
 
-    // Clear the message field before showing a new message
-    messageElement.innerHTML = ''; 
+            // Clear the message field before showing a new message
+            messageElement.innerHTML = '';
 
-    if (!longUrl) {
-        messageElement.innerHTML = '<p class="alert alert-danger">Please provide a valid URL!</p>';
-        return;
-    }
+            if (!longUrl) {
+                messageElement.innerHTML = '<p class="alert alert-danger">Please provide a valid URL!</p>';
+                return;
+            }
 
-    try {
-        const response = await axios.post('/api/shorten', { longUrl });
-        const shortUrl = response.data.shortUrl;
+            try {
+                const response = await axios.post('/api/shorten', { longUrl });
+                const shortUrl = response.data.shortUrl;
 
-        shortUrlElement.classList.remove('hidden');
-        copyBtnElement.classList.remove('hidden');
-        shortLinkElement.href = shortUrl;
-        shortLinkElement.innerText = shortUrl;
+                shortUrlElement.classList.remove('hidden');
+                copyBtnElement.classList.remove('hidden');
+                shortLinkElement.href = shortUrl;
+                shortLinkElement.innerText = shortUrl;
 
-        // Display success message
-        messageElement.innerHTML = '<p class="alert alert-success">URL shortened successfully!</p>';
-    } catch (error) {
-        // Display error message
-        messageElement.innerHTML = '<p class="alert alert-danger">Error shortening URL, please try again.</p>';
-    }
-});
+                // Display success message
+                messageElement.innerHTML = '<p class="alert alert-success">URL shortened successfully!</p>';
+            } catch (error) {
+                // Display error message
+                messageElement.innerHTML = '<p class="alert alert-danger">Error shortening URL, please try again.</p>';
+            }
+        });
 
         document.getElementById('copyBtn').addEventListener('click', () => {
             const shortLink = document.getElementById('shortLink').href;

@@ -20,9 +20,9 @@ const Url = require('./models/sortUrl');
 async function connectDB() {
     try {
         await mongoose.connect(process.env.MONGO_URI, {
-           serverSelectionTimeoutMS: 30000, // Wait up to 30 seconds to select a server
-           socketTimeoutMS: 45000, // Wait up to 45 seconds for a socket to remain open
-           connectTimeoutMS: 30000
+            serverSelectionTimeoutMS: 30000, // Wait up to 30 seconds to select a server
+            socketTimeoutMS: 45000, // Wait up to 45 seconds for a socket to remain open
+            connectTimeoutMS: 30000
         });
         console.log('MongoDB connected successfully');
     } catch (error) {
@@ -31,11 +31,11 @@ async function connectDB() {
 }
 connectDB();
 
+// Routes
 app.get('/', (req, res) => {
+    // customer response setter.
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
-
 
 app.get('/privacy-policy', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/pages/privacy-policy.html'))
@@ -60,26 +60,30 @@ app.get('/analytics', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/pages/analytics.html'))
 })
 
-app.get('/robots.txt', (req ,res) => {
+app.get('/robots.txt', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/pages/robots.txt'));
 })
 // API routes
+
+app.get('/qr-code-generator', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', '/pages/qr-code-generator.html'))
+})
+
 app.get('/blog', async (req, res) => {
     const blogs = await Blog.find({});
-    const randomBlog = blogs[0];
-
+    const randomIndex = Math.floor(Math.random() * blogs.length);
+    const randomBlog = blogs[randomIndex];
     const blogListHTML = blogs.map((data, index) => {
         const date = new Date(data.createdAt);
         const formattedDate = date.toLocaleDateString('en-GB'); // Formats to DD-MM-YYYY
         return `
-            <div class="col-md-4" key="${index}">
+            <div class="col-lg-3 col-md-4" key="${index}">
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div class="col p-4 d-flex flex-column position-static">
                     <div>
                         <img src="${data?.imageURL}" alt="${data.categoryName}" style="height: 200px; width: 100%"/>
                     </div>
                     <div class="d-flex justify-content-between">
-
                        <div> <strong class="d-inline-block mb-2 text-primary-emphasis">
                             ${data.heading}
                         </strong></div>
@@ -91,11 +95,9 @@ app.get('/blog', async (req, res) => {
                             Continue reading
                         </a>
                     </div>
-                </div>
+                </div>  
             </div>`;
     }).join("");
-
-
     const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -105,155 +107,30 @@ app.get('/blog', async (req, res) => {
     <meta name="google-adsense-account" content="ca-pub-5723306635822257">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Snaap.io | Just Snap It</title>
+    <title>Blogs | At Snaap.io</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <meta name="description" content="Shorten, share, and track your URLs effortlessly with Snaap.io. Simplify your links and gain insights with real-time analytics and detailed tracking reports. Perfect for businesses and individuals alike!">
-    <meta name="keywords" content="URL shortener, link shortener, Snaap.io, shorten links, custom URLs, URL tracking, link analytics, URL management, real-time analytics, link sharing, custom link branding">
-    <link rel="icon" type="image/png" href="./logo.avif">
-    <style>
-        body {
-           font-family: "Poppins", sans-serif;
-            background-color: #fff!important
-        }
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-        .navbar {
-            height: 70px;
-            background-color: #000;
-            box-shadow: rgba(0, 0, 0, .12) 0 1px 3px, rgba(0, 0, 0, .24) 0 1px 2px;
-            border-bottom: 1px solid #fff
-        }
+    <meta name="description" 
+      content="Explore insightful articles and expert tips on digital marketing, SEO, URL management, and online tools on the Snaap.io blog. Stay updated with the latest trends and best practices in the digital world.">
 
-        .navbar-brand,
-        .navbar-nav .nav-link,
-        .navbar-nav .nav-link.active {
-            color: #fff
-        }
+    <meta name="keywords" 
+      content="Snaap.io blog, digital marketing, SEO tips, URL shortener blog, link tracking blog, online tools, digital trends, blog articles, online marketing, link management, content marketing, best practices for SEO, Mern Stack, Javascript Projects, React Projects">
 
-        .navbar-nav .nav-link:hover {
-            color: #d1d1d1
-        }
 
-        .input-section {
-            margin-top: 1rem;
-            text-align: center
-        }
+    <link rel="icon" type="image/png" href="https://storage.googleapis.com/snaap/1734096819786-logo.avif">
+    <style>.nav-bg,.navbar,footer section{background:#1b324c!important}body{font-family:"Poppins",sans-serif;background-color:#fff!important}.navbar{height:70px;box-shadow:rgba(0,0,0,.12) 0 1px 3px,rgba(0,0,0,.24) 0 1px 2px;border-bottom:1px solid #fff}.navbar-brand,.navbar-nav .nav-link,.navbar-nav .nav-link.active{color:#fff}.navbar-nav .nav-link:hover{color:#d1d1d1}.input-section{margin-top:1rem;text-align:center}.input-section input{height:50px;width:100%;background-color:#fff;border:1px solid #ddd;color:#000;padding:0 1rem;font-size:1rem;margin-bottom:10px}.input-section button{padding:10px 20px;background-color:#000;color:#fff;border:1px solid #ddd;cursor:pointer;transition:background-color .3s}.input-section button:hover{background-color:#444}.result-section p{font-size:1rem;display:none}.result-section .hidden{display:none}.navbar-brand{line-height:1.5;font-weight:800}.main{height:400px;margin-top:200px}#longUrl{width:100%;height:60px;padding:.8rem;font-size:1.2rem;border-radius:9px}.input-section input:focus{border:2px solid #444;outline:0;transition:border .3s}#generateBtn:hover{transform:scale(1.05);transition:transform .3s}.result-section p.hidden{opacity:0;transition:opacity .5s}.result-section p:not(.hidden){opacity:1}#copyBtn:focus{outline:#444 solid 2px}.result-section span{font-weight:700;text-decoration:underline;cursor:pointer}@media (max-width:768px){.input-section{margin-top:2rem;width:100%!important}.input-section input{max-width:100%}.footer .footer-social-link{margin-bottom:.8rem;text-decoration:none!important}.input-section button{width:100%;margin-top:10px}}.social-link a i{font-size:2rem}.social-link a i:hover{font-size:2.1rem}.nav-bg{color:#fff}footer section{color:#fff!important}
+    .featured-post-card{position:relative;border-radius:10px;overflow:hidden;height:300px;color:#fff;background-image:url('${randomBlog.imageURL}');background-size:cover;background-position:center;background-repeat:no-repeat}.featured-post-card .overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(10,1,1,.8);z-index:0}.featured-post-card .content{position:relative;z-index:1;padding:20px;background-color:rgba(10,3,3,.9);border-radius:10px}.featured-post-card .content h3{font-weight:700;font-size:2rem}.featured-post-card .content p{font-size:1.1rem}.featured-post-card .content a{font-weight:700;font-size:1.1rem;text-decoration:underline}@media (max-width:768px){.featured-post-card{height:auto}}
 
-        .input-section input {
-            height: 50px;
-            width: 100%;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            color: #000;
-            padding: 0 1rem;
-            font-size: 1rem;
-            margin-bottom: 10px
-        }
-
-        .input-section button {
-            padding: 10px 20px;
-            background-color: #000;
-            color: #fff;
-            border: 1px solid #ddd;
-            cursor: pointer;
-            transition: background-color .3s
-        }
-
-        .input-section button:hover {
-            background-color: #444
-        }
-
-        .result-section p {
-            font-size: 1rem;
-            display: none
-        }
-
-        .result-section .hidden {
-            display: none
-        }
-
-        .navbar-brand {
-            line-height: 1.5;
-            font-weight: 800
-        }
-
-        .main {
-            height: 400px;
-            margin-top: 200px
-        }
-
-        #longUrl {
-            width: 100%;
-            height: 60px;
-            padding: .8rem;
-            font-size: 1.2rem;
-            border-radius: 9px
-        }
-
-        .input-section input:focus {
-            border: 2px solid #444;
-            outline: 0;
-            transition: border .3s
-        }
-
-        #generateBtn:hover {
-            transform: scale(1.05);
-            transition: transform .3s
-        }
-
-        .result-section p.hidden {
-            opacity: 0;
-            transition: opacity .5s
-        }
-
-        .result-section p:not(.hidden) {
-            opacity: 1
-        }
-
-        #copyBtn:focus {
-            outline: #444 solid 2px
-        }
-
-        .result-section span {
-            font-weight: 700;
-            text-decoration: underline;
-            cursor: pointer
-        }
-
-        @media (max-width:768px) {
-            .input-section {
-                margin-top: 2rem;
-                width: 100%!important
-            }
-            .input-section input {
-                max-width: 100%
-            }
-            .footer .footer-social-link {
-                margin-bottom: .8rem;
-                text-decoration: none!important
-            }
-            .input-section button {
-                width: 100%;
-                margin-top: 10px
-            }
-        }
-
-        .social-link a i {
-            font-size: 2rem
-        }
-
-        .social-link a i:hover {
-            font-size: 2.1rem
-        }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5 fixed-top" style="background-color: rgba(0, 0, 0, 0.05);">
-        <div class="container-fluid bg-light">
+    <nav class="navbar navbar-expand-lg mb-5 fixed-top">
+        <div class="container-fluid nav-bg">
             <a class="navbar-brand" href="/">Snaap.io</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -264,13 +141,14 @@ app.get('/blog', async (req, res) => {
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/analytics">Analytics</a>
+                        <a class="nav-link" href="/analytics">Analytics</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qr-code-generator">QR Code Generator</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">QR Code Generator</a>
+                        <a class="nav-link" href="/blog">Blogs</a>
                     </li>
                 </ul>
             </div>
@@ -278,15 +156,21 @@ app.get('/blog', async (req, res) => {
     </nav>
     <div style="margin-top: 100px">
         <main class="container">
-            <div class="p-2 p-md-5 mb-4 rounded text-emphasis bg-secondary" style="background-image: linear-gradient(178.7deg, rgb(126, 184, 253) 5.6%, rgb(198 223 255) 95.3%);">
-                <div class="col-lg-12 px-0">
-                    <h3 class="display-8 fst-italic">${randomBlog?.title}</h3>
-                    <p class="lead my-1">${randomBlog?.description}</p>
-                    <p class="lead mb-0"><a href="/blog/${randomBlog?.titleUrl}" class="text-body-emphasis fw-bold">Continue reading...</a></p>
+           <div class="featured-post-card">
+            <div class="overlay"></div>
+                <div class="content">
+                        <b class="h5">Featured Post</b>
+                        <div class="col-lg-12 px-0 mt-3">
+                            <h3 class="display-6 fst-italic">${randomBlog?.title}</h3>
+                            <p class="lead my-3">${randomBlog?.description}</p>
+                            <p class="lead mb-0">
+                                <a href="/blog/${randomBlog?.titleUrl}" class="text-white fw-bold text-decoration-underline">Continue reading...</a>
+                            </p>
+                        </div>
                 </div>
             </div>
-            <div class="row mb-2">
-                ${blogListHTML}     
+            <div class="row mb-2 mt-5">
+                ${blogListHTML}
             </div>
         </main>
     </div>
@@ -342,14 +226,12 @@ app.get('/blog', async (req, res) => {
                             <a href="/" class="text-reset">Snaap.io</a>
                         </p>
                         <p>
-                       <a href="/analytics" class="text-reset">Analytics</a>
+                            <a href="/analytics" class="text-reset">Analytics</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">QR Code Generator</a>
+                            <a href="/qr-code-generator" class="text-reset">QR Code Generator</a>
                         </p>
-                        <p>
-                            <a href="#!" class="text-reset">Image Uploader</a>
-                        </p>
+                    
                     </div>
                     <!-- Grid column -->
 
@@ -370,10 +252,11 @@ app.get('/blog', async (req, res) => {
                         </p>
                         <p>
                             <a href="/privacy-policy" class="text-reset">Privacy Policy</a>
-                        </p> <p>
+                        </p>
+                        <p>
                             <a href="/blog" class="text-reset">Blog</a>
                         </p>
-                      
+
                     </div>
                     <!-- Grid column -->
 
@@ -385,7 +268,7 @@ app.get('/blog', async (req, res) => {
                         <p>
                             <i class="fas fa-envelope me-3"></i> info@snaap.io
                         </p>
-                     
+
                     </div>
                     <!-- Grid column -->
                 </div>
@@ -395,7 +278,7 @@ app.get('/blog', async (req, res) => {
         <!-- Section: Links  -->
 
         <!-- Copyright -->
-        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        <div class="text-center p-4 nav-bg border-top">
             © <span id="year"></span> Copyright:
             <a class="text-reset fw-bold" href="https://snaap.io/">Snaap.io</a>
         </div>
@@ -423,28 +306,30 @@ app.get('/blog', async (req, res) => {
 app.get('/blog/:url', async (req, res) => {
 
     const titleUrl = req.params.url;
-
     const blog = await Blog.findOne({ titleUrl });
     const date = new Date(blog?.createdAt);
     const blogs = await Blog.find({});
 
 
-
-    const blogListHTML = blogs.map((data, index) => {
+    const blogListHTML = blogs
+    .reverse() // Reverse the array
+    .map((data, index) => {
         const date = new Date(data.createdAt);
         const formattedDate = date.toLocaleDateString('en-GB'); // Format date to DD-MM-YYYY
-
+        
+        // Add 'd-none' class to blogs after the first 5
+        const additionalClass = index >= 5 ? 'd-none' : '';
+        
         return `
-            <li>
-                <a class="d-flex flex-column flex-lg-row gap-1 align-items-start align-items-lg-center py-1 link-body-emphasis text-decoration-none" href="/blog/${data.titleUrl}">
-       
-                    <div class="col-lg-12 p-3 bg-light">
+            <li class="${additionalClass}">
+                <a class="d-flex flex-column flex-lg-row gap-1 align-items-start align-items-lg-center py-1 link-body-emphasis" href="/blog/${data.titleUrl}">
+                    <div class="col-lg-12 p-3 accordion-button">
                         <h6 class="mb-0">${data.title}</h6>
                         <small class="text-body-secondary">${formattedDate}</small>
                     </div>
                 </a>
             </li>`;
-    }).join(""); // Join all <li> elements into a single string
+    }).join(""); // Join all <li> elements
 
 
     // Sitemap Generator.
@@ -506,249 +391,34 @@ app.get('/blog/:url', async (req, res) => {
     <meta name="google-adsense-account" content="ca-pub-5723306635822257">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <title>Snaap.io | Just Snap It</title>
+    <title>${blog?.title}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
     />
-        <!-- Link to Prism.js CSS for code highlighting -->
+    <!-- Link to Prism.js CSS for code highlighting -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <meta name="description" content="${blog?.metaDescription}">
     <meta name="keywords" content="${blog?.metaKeywords}">
-    <link rel="icon" type="image/png" href="./logo.avif">
-    <style>
-        body {
-            font-family: Poppins, sans-serif;
-            background-color: #fff!important
-        }
-
-        .navbar {
-            height: 70px;
-            background-color: #000;
-            box-shadow: rgba(0, 0, 0, .12) 0 1px 3px, rgba(0, 0, 0, .24) 0 1px 2px;
-            border-bottom: 1px solid #fff
-        }
-
-        .navbar-brand,
-        .navbar-nav .nav-link,
-        .navbar-nav .nav-link.active {
-            color: #fff
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #d1d1d1
-        }
-
-        .input-section {
-            margin-top: 1rem;
-            text-align: center
-        }
-
-        .input-section input {
-            height: 50px;
-            width: 100%;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            color: #000;
-            padding: 0 1rem;
-            font-size: 1rem;
-            margin-bottom: 10px
-        }
-
-        .input-section button {
-            padding: 10px 20px;
-            background-color: #000;
-            color: #fff;
-            border: 1px solid #ddd;
-            cursor: pointer;
-            transition: background-color .3s
-        }
-
-        .input-section button:hover {
-            background-color: #444
-        }
-
-        .result-section p {
-            font-size: 1rem;
-            display: none
-        }
-
-        .result-section .hidden {
-            display: none
-        }
-
-        .navbar-brand {
-            line-height: 1.5;
-            font-weight: 800
-        }
-
-        .main {
-            height: 400px;
-            margin-top: 200px
-        }
-
-        #longUrl {
-            width: 100%;
-            height: 60px;
-            padding: .8rem;
-            font-size: 1.2rem;
-            border-radius: 9px
-        }
-
-        .input-section input:focus {
-            border: 2px solid #444;
-            outline: 0;
-            transition: border .3s
-        }
-
-        #generateBtn:hover {
-            transform: scale(1.05);
-            transition: transform .3s
-        }
-
-        .result-section p.hidden {
-            opacity: 0;
-            transition: opacity .5s
-        }
-
-        .result-section p:not(.hidden) {
-            opacity: 1
-        }
-
-        #copyBtn:focus {
-            outline: #444 solid 2px
-        }
-
-        .result-section span {
-            font-weight: 700;
-            text-decoration: underline;
-            cursor: pointer
-        }
-
-        @media (max-width:768px) {
-            .input-section {
-                margin-top: 2rem;
-                width: 100%!important
-            }
-            .input-section input {
-                max-width: 100%
-            }
-            .footer .footer-social-link {
-                margin-bottom: .8rem;
-                text-decoration: none!important
-            }
-            .input-section button {
-                width: 100%;
-                margin-top: 10px
-            }
-        }
-
-        .social-link a i {
-            font-size: 2rem
-        }
-
-        .social-link a i:hover {
-            font-size: 2.1rem
-        }
-        
-            
-/* Basic Styles for Table of Contents */
-.table-of-contents {
-    font-family: Arial, sans-serif;
-    padding-left: 20px;
-    list-style-type: none;
-    margin: 0;
-    font-size: 16px;
-}
-.content-wrapper img{
-    max-height: 420px !important;
-    width: 100% !important;
-}
-
-/* Styling each TOC item based on its heading level */
-.table-of-contents .toc-level-1 {
-    font-weight: bold;
-}
-
-.table-of-contents .toc-level-2 {
-    padding-left: 10px;
-}
-
-.table-of-contents .toc-level-3 {
-    padding-left: 20px;
-}
-
-.table-of-contents .toc-level-4 {
-    padding-left: 30px;
-}
-
-.table-of-contents .toc-level-5 {
-    padding-left: 40px;
-}
-
-.table-of-contents .toc-level-6 {
-    padding-left: 50px;
-}
-
-/* Hover effect for links in the TOC */
-.table-of-contents a {
-    color: #2c3e50;
-    text-decoration: none;
-}
-
-.table-of-contents a:hover {
+        <link rel="icon" type="image/png" href="https://storage.googleapis.com/snaap/1734096819786-logo.avif">
+    <style>.nav-bg,.navbar,footer section{background:#1b324c!important}body{font-family:Poppins,sans-serif;background-color:#fff!important}.navbar{height:70px;box-shadow:rgba(0,0,0,.12) 0 1px 3px,rgba(0,0,0,.24) 0 1px 2px;border-bottom:1px solid #fff}.navbar-brand,.navbar-nav .nav-link,.navbar-nav .nav-link.active{color:#fff}.navbar-nav .nav-link:hover{color:#d1d1d1}.input-section{margin-top:1rem;text-align:center}.input-section input{height:50px;width:100%;background-color:#fff;border:1px solid #ddd;color:#000;padding:0 1rem;font-size:1rem;margin-bottom:10px}.input-section button{padding:10px 20px;background-color:#000;color:#fff;border:1px solid #ddd;cursor:pointer;transition:background-color .3s}.input-section button:hover{background-color:#444}.result-section p{font-size:1rem;display:none}.result-section .hidden{display:none}.navbar-brand{line-height:1.5;font-weight:800}.main{height:400px;margin-top:200px}#longUrl{width:100%;height:60px;padding:.8rem;font-size:1.2rem;border-radius:9px}.input-section input:focus{border:2px solid #444;outline:0;transition:border .3s}#generateBtn:hover{transform:scale(1.05);transition:transform .3s}.result-section p.hidden{opacity:0;transition:opacity .5s}.result-section p:not(.hidden){opacity:1}#copyBtn:focus{outline:#444 solid 2px}.result-section span{font-weight:700;text-decoration:underline;cursor:pointer}@media (max-width:768px){.input-section{margin-top:2rem;width:100%!important}.input-section input{max-width:100%}.footer .footer-social-link{margin-bottom:.8rem;text-decoration:none!important}.input-section button{width:100%;margin-top:10px}}.social-link a i{font-size:2rem}.social-link a i:hover{font-size:2.1rem}.table-of-contents{font-family:Arial,sans-serif;padding-left:20px;list-style-type:none;margin:0;font-size:16px}.content-wrapper img{max-height:420px!important;width:100%!important}.table-of-contents .toc-level-1{font-weight:700}.table-of-contents .toc-level-2{padding-left:10px}.table-of-contents .toc-level-3{padding-left:20px}.table-of-contents .toc-level-4{padding-left:30px}.table-of-contents .toc-level-5{padding-left:40px}.table-of-contents .toc-level-6{padding-left:50px}.table-of-contents a{color:#2c3e50;text-decoration:none}.table-of-contents a:hover,a:hover{text-decoration:underline}header{background-color:#333;color:#fff;text-align:center;padding:20px 0}h1{margin:0}main{padding:20px}h2{color:#333}code,pre{font-size:1.1em;background-color:#2d2d2d;color:#f8f8f2;padding:0px;border-radius:5px}pre{overflow-x:auto;margin-bottom:20px}a{color:#3498db;text-decoration:none}.nav-bg{color:#fff}footer section{color:#fff!important}
+      .table-of-contents{
+          background: whitesmoke;
+    padding: 19px;
     text-decoration: underline;
+        list-style-type: disclosure-closed !important;
+    }
+        .accordion-button{
+    color: white !important;
+    background: #1b324c !important;
 }
-
-
-/* Style for anchor links to make them stand out */
-a {
-    color: #3498db;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* code snippts: */
-  header {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-        }
-        h1 {
-            margin: 0;
-        }
-        main {
-            padding: 20px;
-        }
-        h2 {
-            color: #333;
-        }
-        pre, code {
-            font-size: 1.1em;
-            background-color: #2d2d2d;
-            color: #f8f8f2;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        pre {
-            overflow-x: auto;
-            margin-bottom: 20px;
-        }
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-
-
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5 fixed-top" style="background-color: rgba(0, 0, 0, 0.05);">
-        <div class="container-fluid bg-light">
+    <nav class="navbar navbar-expand-lg  mb-5 fixed-top" style="background-color: rgba(0, 0, 0, 0.05);">
+        <div class="container-fluid nav-bg">
             <a class="navbar-brand" href="/">Snaap.io</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -759,13 +429,14 @@ a:hover {
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/analytics">Analytics</a>
+                        <a class="nav-link" href="/analytics">Analytics</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/qr-code-generator">QR Code Generator</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">QR Code Generator</a>
+                        <a class="nav-link" href="/blog">Blogs</a>
                     </li>
                 </ul>
             </div>
@@ -775,58 +446,65 @@ a:hover {
         <main class="container">
             <div class="row g-5">
                 <div class="col-md-8">
-                    <h1 class="pb-1 mb-2 border-bottom" style="font-size: 1.3rem">
-                        ${blog?.heading}
-                    </h1>
-                  
+            
                     <article class="blog-post">
-                        <h2 class="display-8 link-body-emphasis mb-1">${blog?.title}</h2>
+                        <h1 class="display-8 link-body-emphasis mb-1">${blog?.heading}</h1>
                         <p class="blog-post-meta">${formattedDate} by ${blog?.postBy}</p>
 
-  <div>
-                        <img src="${blog?.imageURL}" alt="${blog?.heading}" style="height: 400px; width: 100%"/>
-                    </div>
                         <div>
-                            
-                            ${tocHtml}
-                      
+                            <img src="${blog?.imageURL}" alt="${blog?.heading}" style="height: 400px; width: 100%" />
                         </div>
                         <div>
-                        ${modifiedHtml}
-                        
+                            ${tocHtml}
+                        </div>
+                        <div>
+                            ${modifiedHtml}
                         </div>
                     </article>
                 </div>
 
                 <div class="col-md-4">
                     <div class="position-sticky" style="top: 2rem;">
-
-                     
-
                         <div class="p-1 mb-3 bg-body-tertiary rounded">
                             <h4 class="">About</h4>
                             <p class="mb-0">At Snaap.io, we aim to empower you with simple, yet powerful tools that enhance your digital workflows. Whether you're sharing links, tracking performance, or creating custom QR codes, we are here to make your online presence
-                                seamless..</p>
+                                seamless..
+                            </p>
                         </div>
 
                         <div>
-                            <h4 class="">Recent posts</h4>
+                            <h4 class="">Our Recent posts</h4>
                             ${finalHTML}
                         </div>
 
-
                         <div class="p-4">
-                            <h4 class="">Elsewhere</h4>
+                            <h4 class="">Follow Us</h4>
                             <ol class="list-unstyled d-flex gap-3">
-                                <li><a href="https://github.com/codewithcraze">GitHub</a></li>
-                                <li><a href="https://www.linkedin.com/in/codewithcraze/">Linkedin</a></li>
-                                <li><a href="https://www.instagram.com/codewithdeepak.in">Instagram</a></li>
+                                <li>
+                                    <a href="https://github.com/codewithcraze" target="_blank" class="text-decoration-none">
+                                        <i class="fab fa-github fa-lg"></i> GitHub
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.linkedin.com/in/codewithcraze/" target="_blank" class="text-decoration-none">
+                                        <i class="fab fa-linkedin fa-lg"></i> LinkedIn
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/codewithdeepak.in" target="_blank" class="text-decoration-none">
+                                        <i class="fab fa-instagram fa-lg"></i> Instagram
+                                    </a>
+                                </li>
                             </ol>
                         </div>
+
+                        <!-- Add Font Awesome -->
+                        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
                     </div>
                 </div>
             </div>
-
+    
         </main>
     </div>
 
@@ -883,14 +561,12 @@ a:hover {
                             <a href="/" class="text-reset">Snaap.io</a>
                         </p>
                         <p>
-                       <a href="/analytics" class="text-reset">Analytics</a>
+                            <a href="/analytics" class="text-reset">Analytics</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">QR Code Generator</a>
+                            <a href="/qr-code-generator" class="text-reset">QR Code Generator</a>
                         </p>
-                        <p>
-                            <a href="#!" class="text-reset">Image Uploader</a>
-                        </p>
+                      
                     </div>
                     <!-- Grid column -->
 
@@ -926,7 +602,7 @@ a:hover {
                         <p>
                             <i class="fas fa-envelope me-3"></i> info@snaap.io
                         </p>
-                     
+
                     </div>
                     <!-- Grid column -->
                 </div>
@@ -936,25 +612,23 @@ a:hover {
         <!-- Section: Links  -->
 
         <!-- Copyright -->
-        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        <div class="text-center p-4 nav-bg border-top">
             © <span id="year"></span> Copyright:
             <a class="text-reset fw-bold" href="https://snaap.io/">Snaap.io</a>
         </div>
-        </footer>
-          <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+    </footer>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <!-- Bootstrap Icons -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
-        </script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5723306635822257"
-        crossorigin="anonymous"></script>
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5723306635822257" crossorigin="anonymous"></script>
 
 </body>
+
 </html>`;
 
     res.send(html);

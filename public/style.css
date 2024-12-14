@@ -1,3 +1,10 @@
+.step-number,
+.stepper,
+.stepper-item {
+    display: flex;
+    position: relative
+}
+
 body {
     font-family: "Poppins", sans-serif;
     background-color: #fff !important
@@ -5,7 +12,7 @@ body {
 
 .navbar {
     height: 70px;
-    background-color: #000;
+    background: #1b324c !important;
     box-shadow: rgba(0, 0, 0, .12) 0 1px 3px, rgba(0, 0, 0, .24) 0 1px 2px;
     border-bottom: 1px solid #fff
 }
@@ -22,7 +29,8 @@ body {
 
 .input-section {
     margin-top: 1rem;
-    text-align: center
+    text-align: center;
+    width: 70% !important;
 }
 
 .input-section input {
@@ -64,8 +72,8 @@ body {
 }
 
 .main {
-    height: 400px;
-    margin-top: 200px
+    height: auto;
+    margin-top: 100px
 }
 
 #longUrl {
@@ -125,6 +133,9 @@ body {
         width: 100%;
         margin-top: 10px
     }
+    #urlForm{
+        width: 100% !important;
+    }
 }
 
 .social-link a i {
@@ -133,4 +144,78 @@ body {
 
 .social-link a i:hover {
     font-size: 2.1rem
+}
+
+.stepper {
+    flex-direction: column;
+    padding-left: 0px
+}
+
+.stepper::before {
+    content: '';
+    position: absolute;
+    left: 13px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #dee2e6
+}
+
+.stepper-item {
+    align-items: flex-start;
+    margin-bottom: 20px
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #ff914d;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 700;
+    z-index: 1;
+}
+
+.step-content {
+    margin-left: 15px
+}
+
+.step-title {
+    font-size: 1.1rem;
+    font-weight: 600
+}
+
+.step-description {
+    margin: 5px 0 0;
+    color: #6c757d
+}
+
+.nav-bg{
+    background: #1b324c !important;
+    color: white;
+}
+
+footer section{
+    color: white !important;
+    background: #1b324c !important;
+}
+
+.accordion-item:first-of-type .accordion-button {
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px);
+    background: #1b324c;
+    color: white !important;
+    height: 70px !important;
+}
+.accordion-button{
+    color: white !important;
+    background: #1b324c !important;
+}
+
+.navbar-toggler{
+    color: white !important;
+    background: white !important;
 }
