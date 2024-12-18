@@ -65,6 +65,10 @@ app.get('/robots.txt', (req, res) => {
 })
 // API routes
 
+app.get('/disclaimer', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', '/pages/disclaimer.html'))
+})
+
 app.get('/qr-code-generator', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', '/pages/qr-code-generator.html'))
 })
@@ -257,6 +261,8 @@ app.get('/blog', async (req, res) => {
                         </p>
                         <p>
                             <a href="/blog" class="text-reset">Blog</a>
+                        </p> <p>
+                            <a href="/disclaimer" class="text-reset">Disclaimer</a>
                         </p>
 
                     </div>
