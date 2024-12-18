@@ -77,11 +77,12 @@ app.get('/blog', async (req, res) => {
     const blogs = await Blog.find({});
     const randomIndex = Math.floor(Math.random() * blogs.length);
     const randomBlog = blogs[randomIndex];
+    blogs.splice(randomIndex, 1);
     const blogListHTML = blogs.map((data, index) => {
         const date = new Date(data.createdAt);
         const formattedDate = date.toLocaleDateString('en-GB'); // Formats to DD-MM-YYYY
         return `
-            <div class="col-lg-3 col-md-4" key="${index}">
+            <div class="col-lg-6 col-md-6" key="${index}">
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div class="col p-4 d-flex flex-column position-static">
                     <div>
@@ -320,7 +321,7 @@ app.get('/blog/:url', async (req, res) => {
         res.sendFile(path.join(__dirname, 'public', '/pages/notfound.html'));
     }else{
         const date = new Date(blog?.createdAt);
-        const blogs = await Blog.find({});
+        const blogs = await Blog.find({ titleurl: { $ne: titleUrl } });
         const blogListHTML = blogs
         .reverse() // Reverse the array
         .map((data, index) => {
@@ -684,6 +685,14 @@ app.get('/blog/:url', async (req, res) => {
       const lastBreadcrumb = breadcrumbElement.lastElementChild;
       if (lastBreadcrumb) {
         lastBreadcrumb.classList.add('active');
+        const anchor = lastBreadcrumb.querySelector('a');
+
+        // Move the anchor's text content directly into the <li> element
+        lastBreadcrumb.textContent = anchor.textContent;
+
+        // Optionally, you can keep the 'active' class and pointer-events styles
+        lastBreadcrumb.classList.add('active');
+        lastBreadcrumb.style.pointerEvents = 'none'; // To disable clickability
       }
     }
     
