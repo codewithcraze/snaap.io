@@ -6,9 +6,6 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 require('dotenv').config();
 const cheerio = require('cheerio');
-const cluster = require('cluster');
-const os = require('os');
-
 
 app.use(bodyParser.json());
 // To parse application/json content
@@ -32,6 +29,7 @@ async function connectDB() {
         console.log('Error connecting to MongoDB:', error.message);
     }
 }
+connectDB();
 
 // Routes
 app.get('/', (req, res) => {
@@ -752,27 +750,6 @@ app.get('*', (req, res) => {
 })
 
 
-// Check if the current process is the master or a worker
-if (cluster.isMaster) {
-    const numCPUs = os.cpus().length;  // Get number of CPU cores
-  
-    console.log(`Master process is running on PID: ${process.pid}`);
-    
-    // Fork workers
-    for (let i = 0; i < numCPUs; i++) {
-      cluster.fork();  // Forking a worker for each CPU core
-    }
-  
-    // Handle dying workers
-    cluster.on('exit', (worker, code, signal) => {
-      console.log(`Worker ${worker.process.pid} died`);
-    });
-    
-  } else {
-    // Worker process, connect to MongoDB and start the server here
-    connectDB().then(() => {
-      app.listen(port, () => {
-        console.log(`Worker ${process.pid} started and listening on port ${port}`);
-      });
-    });
-  }
+app.listen(port, () => {
+    console.log('Server is running on port ' + port);
+});
