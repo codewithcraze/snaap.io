@@ -420,7 +420,7 @@ app.get('/blog/:url', async (req, res) => {
               background: whitesmoke;
         padding: 19px;
         text-decoration: underline;
-            list-style-type: disclosure-closed !important;
+            list-style-type: circle !important;
         }
             .accordion-button{
         color: white !important;
