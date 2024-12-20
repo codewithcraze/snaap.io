@@ -78,11 +78,11 @@ app.get('/blog', async (req, res) => {
     const randomIndex = Math.floor(Math.random() * blogs.length);
     const randomBlog = blogs[randomIndex];
     blogs.splice(randomIndex, 1);
-    const blogListHTML = blogs.map((data, index) => {
+    const blogListHTML = blogs.reverse().map((data, index) => {
         const date = new Date(data.createdAt);
         const formattedDate = date.toLocaleDateString('en-GB'); // Formats to DD-MM-YYYY
         return `
-            <div class="col-lg-6 col-md-6" key="${index}">
+            <div class="col-lg-4 col-md-6" key="${index}">
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div class="col p-4 d-flex flex-column position-static">
                     <div>
