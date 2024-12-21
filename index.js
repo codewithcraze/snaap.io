@@ -20,9 +20,8 @@ const Url = require('./models/sortUrl');
 async function connectDB() {
     try {
         await mongoose.connect(process.env.MONGO_URI, {
-            serverSelectionTimeoutMS: 30000, // Wait up to 30 seconds to select a server
-            socketTimeoutMS: 45000, // Wait up to 45 seconds for a socket to remain open
-            connectTimeoutMS: 30000
+            serverSelectionTimeoutMS: 30000,  // Set the timeout to 30 seconds (default is 30 seconds)
+            socketTimeoutMS: 45000,   
         });
         console.log('MongoDB connected successfully');
     } catch (error) {
@@ -315,14 +314,15 @@ app.get('/blog', async (req, res) => {
 app.get('/blog/:url', async (req, res) => {
 
     const titleUrl = req.params.url;
-    const blog = await Blog.findOne({ titleUrl });
+    const blogs = await Blog.find();
+    const blog = blogs.find(b => b.titleUrl === titleUrl)
+    console.log(blog);
 
     if(!blog){
         res.sendFile(path.join(__dirname, 'public', '/pages/notfound.html'));
     }else{
         const date = new Date(blog?.createdAt);
-        const blogs = await Blog.find({ titleurl: { $ne: titleUrl } });
-        const blogListHTML = blogs
+        const blogListHTML = blogs.filter(b => b.titleUrl !== titleUrl)
         .reverse() // Reverse the array
         .map((data, index) => {
             const date = new Date(data.createdAt);
@@ -390,8 +390,19 @@ app.get('/blog/:url', async (req, res) => {
     
     
         const finalHTML = `<ul class="list-unstyled">${blogListHTML}</ul>`;
-        const formattedDate = date.toLocaleDateString('en-GB'); // Formats to DD-MM-YYYY
+        
+        const setDate = new Date(date);
+
+// Create a formatted date string
+        const day = setDate.getDate();
+        const month = setDate.toLocaleString('default', { month: 'short' }); // 'Dec'
+        const year = setDate.getFullYear();
+
+        // Construct the formatted date
+        const formattedDate = `${day} ${month} ${year}`;
     
+
+
         const html = `<!doctype html>
     <html lang="en">
     
@@ -461,14 +472,21 @@ app.get('/blog/:url', async (req, res) => {
                    <nav aria-label="breadcrumb">
               <ol class="breadcrumb" id="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="/blog">Blog</a></li>
+                <li class="breadcrumb-item">${blog.heading}</li>
               </ol>
             </nav>
                 <div class="row g-5">
                     <div class="col-md-8">
-                        <article class="blog-post">
-                            <h1 class="display-8 link-body-emphasis mb-1">${blog?.heading}</h1>
-                            <p class="blog-post-meta">${formattedDate} by ${blog?.postBy}</p>
-    
+                    <article class="blog-post">
+                    <h1 class="display-8 link-body-emphasis mb-1">${blog?.heading}</h1>
+                    
+                    <div class="d-flex justify-content-between align-items-center">
+                    <div><b>Published at</b>: ${formattedDate}</div>
+                    <div><b>Category</b>:  ${blog?.categoryName}</div>
+                    <div><b>Author</b>:  ${blog?.postBy}</div>
+                    </div>
+                    <hr>        
                             <div>
                                 <img src="${blog?.imageURL}" alt="${blog?.heading}" style="height: 400px; width: 100%" />
                             </div>
@@ -643,67 +661,7 @@ app.get('/blog/:url', async (req, res) => {
         <script>
             document.getElementById("year").textContent = new Date().getFullYear();
         </script>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5723306635822257" crossorigin="anonymous"></script>
-        
-        <script>
-    // Function to update the breadcrumb dynamically based on the current URL
-    function updateBreadcrumb() {
-    debugger;
-      const breadcrumbElement = document.getElementById('breadcrumb');
-      const url = window.location.pathname; // Get the current URL path
-    
-      // Split the URL path into segments (ignoring leading empty segments)
-      const pathSegments = url.split('/').filter(segment => segment);
-    
-      // Clear previous breadcrumb items (except the Home link)
-      breadcrumbElement.innerHTML = '<li class="breadcrumb-item"><a href="/">Home</a></li>';
-    
-      // Loop through each path segment and add to breadcrumb
-      pathSegments.forEach((segment, index) => {
-        const breadcrumbItem = document.createElement('li');
-        breadcrumbItem.classList.add('breadcrumb-item');
-        
-        // Capitalize the first letter of each word in the segment and replace dashes with spaces
-        const displayText = segment
-          .split('-') // Split segment by hyphen
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
-          .join(' '); // Join the words with spaces
-    
-        // Create a link for each breadcrumb item (except the last one)
-        const breadcrumbLink = document.createElement('a');
-        breadcrumbLink.href = '/' + pathSegments.slice(0, index + 1).join('/');
-        breadcrumbLink.innerText = displayText;
-    
-        // Append the link to the breadcrumb item
-        breadcrumbItem.appendChild(breadcrumbLink);
-        
-        // Append the breadcrumb item to the breadcrumb list
-        breadcrumbElement.appendChild(breadcrumbItem);
-      });
-    
-      // Make the last breadcrumb item active (no link for the current page)
-      const lastBreadcrumb = breadcrumbElement.lastElementChild;
-      if (lastBreadcrumb) {
-        lastBreadcrumb.classList.add('active');
-        const anchor = lastBreadcrumb.querySelector('a');
-
-        // Move the anchor's text content directly into the <li> element
-        lastBreadcrumb.textContent = anchor.textContent;
-
-        // Optionally, you can keep the 'active' class and pointer-events styles
-        lastBreadcrumb.classList.add('active');
-        lastBreadcrumb.style.pointerEvents = 'none'; // To disable clickability
-      }
-    }
-    
-    // Run the function to update the breadcrumb when the page loads
-    window.addEventListener('DOMContentLoaded', updateBreadcrumb);
-    
-    // If the URL changes (e.g., user uses back/forward navigation), update the breadcrumb
-    window.addEventListener('popstate', updateBreadcrumb);
-    
-    </script>
-    
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5723306635822257" crossorigin="anonymous"></script>    
     
     </body>
     
